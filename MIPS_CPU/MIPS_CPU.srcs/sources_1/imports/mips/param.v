@@ -25,3 +25,14 @@ parameter	IorD_D		=	2'b1;
 parameter  BOOT_ADDR    = 32'b0;
 
 parameter J_TYPE_OP     = 5'b00001;
+
+parameter AddrSrc_IM   = 1'b0;
+parameter AddrSrc_REG  = 1'b1;
+
+parameter ForwardAEX_NONE = 2'b00;
+parameter ForwardAEX_ALU  = 2'b10;
+parameter ForwardAEX_MEM  = 2'b01;
+
+parameter ForwardBEX_NONE = 2'b00;
+parameter ForwardBEX_ALU  = 2'b10;
+parameter ForwardBEX_MEM  = 2'b01;

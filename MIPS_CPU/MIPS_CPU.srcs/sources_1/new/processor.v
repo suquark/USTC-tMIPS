@@ -46,7 +46,7 @@ module processor(
     reg [31:0] EXMEM_ALUOut, EXMEM_WriteData, EXMEM_WriteReg;
     
     reg MEMWB_RegWrite, MEMWB_MemtoReg;
-    reg [31:0] MEMWB_ALUOut, MEMWB_ReadData, MEMWB_IR;
+    reg [31:0] MEMWB_ALUOut, MEMWB_ReadData, MEMWB_WriteReg;
     
     wire [4:0] IFID_rd, IFID_rt, IFID_rs, IFID_op;
     wire [4:0] MEMWB_WriteReg;
@@ -55,6 +55,7 @@ module processor(
     wire StallIF, StallID;
     //forward sigmal
     wire ForwardAID, ForwardBID;
+    wire [1:0] ForwardAEX, ForwardBEX;
     //flush signal
     wire FlushEX;
     wire [31:0] PCBranch;
@@ -98,10 +99,14 @@ module processor(
     assign jump_address =  {PC[31:28], address, 2'b0};
     assign PCSrcIF = (IF_op[5:1] == J_TYPE_OP)?PCSrcIF_J:PCSrcIF_ADD4;
     assign nPC = (PCSrcID == PCSrcID_NORM)?((PCSrcIF == PCSrcIF_ADD4)?PC+32'd4:jump_address):PCBranch;
+    
+    
+    
+    
     //DEBUG information
-    assign StallIF = 1'b0;
-    assign PCSrcID = PCSrcID_NORM;
-  /*  assign IFID_op[5:0] = IFID_IR[31:26];
+    //assign StallIF = 1'b0;
+    //assign PCSrcID = PCSrcID_NORM;
+    assign IFID_op[5:0] = IFID_IR[31:26];
     assign IFID_rs[4:0] = IFID_IR[25:21];
     assign IFID_rt[4:0] = IFID_IR[20:16];
     assign IFID_rd[4:0] = IFID_ID[15:11];
@@ -119,10 +124,10 @@ module processor(
         .r2_dout    (reg_r2_out)
     );
     wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_ALUSrc, cu_IDEX_RegDst;
-    wire cu_IDEX_Branch, cu_IDEX_Jump;
+    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp, cu_IDEX_Jump;
     wire [3:0] cu_IDEX_ALUControl;
     
-    
+    wire ADDR_Src;
     cu cu1(
         .op     (IFID_op[5:0]),
         .RegWrite   (cu_IDEX_RegWrite),
@@ -131,14 +136,20 @@ module processor(
         .ALUControl (cu_IDEX_ALUControl[3:0]),
         .ALUSrc     (cu_IDEX_ALUSrc),
         .RegDst     (cu_IDEX_RegDst),
-        .Branch     (cu_IDEX_Branch),
-        .Jump       (cu_IDEX_Jump) 
+        .Branchn    (cu_IDEX_Branchn),
+        .Branchz    (cu_IDEX_Branchz),
+        .Branchp    (cu_IDEX_Branchp),
+        .Jump       (cu_IDEX_Jump),
+        .AddrSrc   (ADDR_Src)
     );
     
     wire [15:0] immediate;
     wire [31:0] ext_immediate;
     assign immediate[15:0] = IFID_IR[15:0];
     assign ext_immediate[31:0] = {{16{immediate[15]}}, immediate[15:0]};
+    wire [31:0] real_a, real_b;
+    assign real_a = ForwardAID?EXMEM_ALUOut:reg_r1_dout;
+    assign real_b = ForwardBID?EXMEM_ALUOut:reg_r2_dout;
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -173,16 +184,84 @@ module processor(
                 IDEX_RegDst <= cu_IDEX_RegDst;
                 IDEX_IM <= ext_immediate[31:0];
                 IDEX_IR <= IDIF_IR;
-                IDEX_A <= (ForwardAID?EXMEM_ALUOut:reg_r1_dout);
-                IDEX_B <= (ForwardBID?EXMEM_ALUOut:reg_r2_dout);
+                IDEX_A <= real_a;
+                IDEX_B <= real_b;
             end
         end
-    end*/
+    end
+    
+    wire br_n, br_z, br_p;
+    assign PCBranch = (ADDR_Src == AddrSrc_IM)?(ext_immediate << 2):real_a;
+    branch_de branch_de1(
+        .a (real_a),
+        .b  (real_b),
+        .n  (br_n),
+        .z  (br_z),
+        .p  (br_p)
+    );
+     
+    assign PCSrcID = (cu_IDEX_Branchn && br_n) || (cu_IDEX_Branchz && br_z) || (cu_IDEX_Branchp && br_p);
     
     
-        
-        
+    
+    wire [31:0] ALU_in_a, ALU_in_b, ALU_ALUOut;
+    alu alu1
+    (
+        .alu_a  (ALU_in_a),
+        .alu_b  (ALU_in_b),
+        .alu_op (IDEX_ALUControl[3:0]),
+        .alu_out (ALU_ALUOut)
+    );
+    
+    assign ALU_in_a = (ForwardAEX == ForwardAEX_NONE)?IDEX_A:((ForwardAEX == ForwardAEX_ALU)?EXMEM_ALUOut:MEMWB_Result);
+    assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:(
+    (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?EXMEM_ALUOut:MEMWB_Result));
+    
+    wire [31:0] EX_rd, EX_rt;
+    assign EX_rt[4:0] = IDEX_IR[20:16];
+    assign EX_rd[4:0] = IDEX_ID[15:11];
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) begin
+            EXMEM_MemtoReg <= MemtoReg_ALU;
+            EXMEM_RegWrite <= 5'b0;
+            EXMEM_MemWrite <= 1'b0;
+            EXMEM_ALUOut <= 32'b0;
+            EXMEM_WriteData <= 32'b0;
+            EXMEM_WriteReg <= 1'b0;
+        end else begin
+            EXMEM_MemtoReg <= IDEX_MemtoReg;
+            EXMEM_RegWrite <= IDEX_RegWrite;
+            EXMEM_MemWrite <= IDEX_MemWrite;
+            EXMEM_ALUOut <= ALU_ALUOut;
+            EXMEM_WriteData <= ALU_in_b;
+            EXMEM_WriteReg <= (IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0];
+        end
+    end
+    
+    assign dmem_a = EXMEM_ALUOut;
+    assign dmem_wd = EXMEM_WriteData;
+    assign dmem_we = EXMEM_MemWrite;
+    
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) begin
+            MEMWB_RegWrite <= 1'b0;
+            MEMWB_ALUOut    <= 1'b0;
+            MEMWB_ReadData  <= 1'b0;
+            MEMWB_MemtoReg  <= MemtoReg_ALU;
+            MEMWB_WriteReg  <= 1'b0;
+        end else begin
+             MEMWB_RegWrite <= EXMEM_RegWrite;
+             MEMWB_ALUOut    <= EXMEM_ALUOut;
+             MEMWB_ReadData  <= dmem_rd;
+             MEMWB_MemtoReg  <= EXMEM_MemtoReg;
+             MEMWB_WriteReg  <= EXMEM_WriteReg;
+        end
+    end
     
     
+    
+    assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
     
 endmodule
