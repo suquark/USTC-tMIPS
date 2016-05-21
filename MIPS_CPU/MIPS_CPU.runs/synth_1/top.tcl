@@ -13,7 +13,15 @@ set_property parent.project_path D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.xp
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property vhdl_version vhdl_2k [current_fileset]
-read_verilog -library xil_defaultlib D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v
+add_files d:/verilog/zu4/mips1/ipcore_dir/rom_init.coe
+add_files -quiet D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/rom_synth_1/rom.dcp
+set_property used_in_implementation false [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/rom_synth_1/rom.dcp]
+read_verilog D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/imports/mips/param.v
+set_property file_type "Verilog Header" [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/imports/mips/param.v]
+read_verilog -library xil_defaultlib {
+  D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v
+  D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v
+}
 read_xdc D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc
 set_property used_in_implementation false [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc]
 

@@ -21,7 +21,19 @@
 
 
 module top(
-    output [15:0] led
+    input clk,
+    input rst_n
     );
-    assign led[15:0] = 16'b1100000000001001;
+    wire [31:0] imem_a, imem_d;
+    processor processor1
+    (
+        .clk    (clk),
+        .rst_n  (rst_n),
+        .imem_a    (imem_a),
+        .imem_d     (imem_d)
+    );
+    rom rom1(
+        .a  (imem_a[7:2]),
+        .spo    (imem_d)
+    );
 endmodule
