@@ -106,10 +106,12 @@ module processor(
     //DEBUG information
     //assign StallIF = 1'b0;
     //assign PCSrcID = PCSrcID_NORM;
+    wire [5:0] IFIF_funct;
     assign IFID_op[5:0] = IFID_IR[31:26];
     assign IFID_rs[4:0] = IFID_IR[25:21];
     assign IFID_rt[4:0] = IFID_IR[20:16];
-    assign IFID_rd[4:0] = IFID_ID[15:11];
+    assign IFID_rd[4:0] = IFID_IR[15:11];
+    assign IFID_funct[5:0] = IFID_IR[5:0];
     
     wire [31:0] reg_r1_dout, reg_r2_dout;
     register register1(
@@ -124,23 +126,25 @@ module processor(
         .r2_dout    (reg_r2_out)
     );
     wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_ALUSrc, cu_IDEX_RegDst;
-    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp, cu_IDEX_Jump;
+    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp;
     wire [3:0] cu_IDEX_ALUControl;
     
     wire ADDR_Src;
-    cu cu1(
+    wire cu_PCSrcID;
+    control_unit cu1(
         .op     (IFID_op[5:0]),
+        .funct  (IFID_funct[5:0]),
         .RegWrite   (cu_IDEX_RegWrite),
         .MemtoReg   (cu_IDEX_MemtoReg),
         .MemWrite   (cu_IDEX_MemWrite),
         .ALUControl (cu_IDEX_ALUControl[3:0]),
         .ALUSrc     (cu_IDEX_ALUSrc),
         .RegDst     (cu_IDEX_RegDst),
-        .Branchn    (cu_IDEX_Branchn),
-        .Branchz    (cu_IDEX_Branchz),
-        .Branchp    (cu_IDEX_Branchp),
-        .Jump       (cu_IDEX_Jump),
-        .AddrSrc   (ADDR_Src)
+        .BranchN    (cu_IDEX_Branchn),
+        .BranchZ    (cu_IDEX_Branchz),
+        .BranchP    (cu_IDEX_Branchp),
+        .AddrSrc   (ADDR_Src),
+        .PCSrcID    (cu_PCSrcID)
     );
     
     wire [15:0] immediate;
@@ -200,7 +204,7 @@ module processor(
         .p  (br_p)
     );
      
-    assign PCSrcID = (cu_IDEX_Branchn && br_n) || (cu_IDEX_Branchz && br_z) || (cu_IDEX_Branchp && br_p);
+    assign PCSrcID = cu_PCSrcID || (cu_IDEX_Branchn && br_n) || (cu_IDEX_Branchz && br_z) || (cu_IDEX_Branchp && br_p);
     
     
     
