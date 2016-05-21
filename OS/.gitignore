@@ -1,0 +1,6 @@
+*.o
+*.bin
+*.bac
+*.img
+core
+boot
