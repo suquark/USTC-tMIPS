@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.4 (win64) Build 1412921 Wed Nov 18 09:43:45 MST 2015
-| Date         : Sun May 22 11:43:04 2016
+| Date         : Sun May 22 21:12:49 2016
 | Host         : cuilaptop running 64-bit major release  (build 9200)
 | Command      : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
 | Design       : top
@@ -27,18 +27,20 @@ Table of Contents
 1. Slice Logic
 --------------
 
-+-------------------------+------+-------+-----------+-------+
-|        Site Type        | Used | Fixed | Available | Util% |
-+-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             |  885 |     0 |     20800 |  4.25 |
-|   LUT as Logic          |  885 |     0 |     20800 |  4.25 |
-|   LUT as Memory         |    0 |     0 |      9600 |  0.00 |
-| Slice Registers         | 1323 |     0 |     41600 |  3.18 |
-|   Register as Flip Flop | 1323 |     0 |     41600 |  3.18 |
-|   Register as Latch     |    0 |     0 |     41600 |  0.00 |
-| F7 Muxes                |  256 |     0 |     16300 |  1.57 |
-| F8 Muxes                |  128 |     0 |      8150 |  1.57 |
-+-------------------------+------+-------+-----------+-------+
++----------------------------+------+-------+-----------+-------+
+|          Site Type         | Used | Fixed | Available | Util% |
++----------------------------+------+-------+-----------+-------+
+| Slice LUTs*                | 1569 |     0 |     20800 |  7.54 |
+|   LUT as Logic             | 1057 |     0 |     20800 |  5.08 |
+|   LUT as Memory            |  512 |     0 |      9600 |  5.33 |
+|     LUT as Distributed RAM |  512 |     0 |           |       |
+|     LUT as Shift Register  |    0 |     0 |           |       |
+| Slice Registers            | 1355 |     0 |     41600 |  3.26 |
+|   Register as Flip Flop    | 1355 |     0 |     41600 |  3.26 |
+|   Register as Latch        |    0 |     0 |     41600 |  0.00 |
+| F7 Muxes                   |  512 |     0 |     16300 |  3.14 |
+| F8 Muxes                   |  256 |     0 |      8150 |  3.14 |
++----------------------------+------+-------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 
 
@@ -57,7 +59,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 1307  |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
-| 16    |          Yes |       Reset |            - |
+| 48    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -150,17 +152,18 @@ Table of Contents
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | FDCE     | 1307 |        Flop & Latch |
-| LUT6     |  684 |                 LUT |
-| MUXF7    |  256 |               MuxFx |
-| MUXF8    |  128 |               MuxFx |
-| LUT3     |  104 |                 LUT |
+| LUT6     |  737 |                 LUT |
+| RAMS64E  |  512 |  Distributed Memory |
+| MUXF7    |  512 |               MuxFx |
+| MUXF8    |  256 |               MuxFx |
+| LUT3     |  230 |                 LUT |
 | LUT5     |   91 |                 LUT |
-| LUT2     |   38 |                 LUT |
-| LUT1     |   18 |                 LUT |
+| FDRE     |   48 |        Flop & Latch |
+| LUT2     |   39 |                 LUT |
 | OBUF     |   16 |                  IO |
-| FDRE     |   16 |        Flop & Latch |
 | CARRY4   |   10 |          CarryLogic |
-| LUT4     |    6 |                 LUT |
+| LUT1     |    8 |                 LUT |
+| LUT4     |    7 |                 LUT |
 | IBUF     |    2 |                  IO |
 | BUFG     |    1 |               Clock |
 +----------+------+---------------------+
@@ -171,9 +174,6 @@ Table of Contents
 
 +----------+------+
 | Ref Name | Used |
-+----------+------+
-| rom      |    1 |
-| ram      |    1 |
 +----------+------+
 
 

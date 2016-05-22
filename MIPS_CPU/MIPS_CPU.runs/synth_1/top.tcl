@@ -8,18 +8,24 @@ create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
+set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.cache/wt [current_project]
 set_property parent.project_path D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property vhdl_version vhdl_2k [current_fileset]
 add_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/rom_init.coe
-add_files -quiet D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/rom_synth_1/rom.dcp
-set_property used_in_implementation false [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/rom_synth_1/rom.dcp]
-add_files -quiet D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/ram_synth_1/ram.dcp
-set_property used_in_implementation false [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/ram_synth_1/ram.dcp]
+add_files d:/project/MIPS/USTC-tMIPS/MIPS_CPU/ram_init.coe
 read_verilog D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/param.v
 set_property file_type "Verilog Header" [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/param.v]
+read_ip D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram.xci
+set_property used_in_implementation false [get_files -all d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram_ooc.xdc]
+set_property is_locked true [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram.xci]
+
+read_ip d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci
+set_property used_in_implementation false [get_files -all d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom_ooc.xdc]
+set_property is_locked true [get_files d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci]
+
 read_verilog -library xil_defaultlib {
   D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/alu.v
   D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/register.v
@@ -33,6 +39,8 @@ read_verilog -library xil_defaultlib {
 read_xdc D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc
 set_property used_in_implementation false [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc]
 
+read_xdc dont_touch.xdc
+set_property used_in_implementation false [get_files dont_touch.xdc]
 synth_design -top top -part xc7a35tcpg236-1
 write_checkpoint -noxdef top.dcp
 catch { report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb }

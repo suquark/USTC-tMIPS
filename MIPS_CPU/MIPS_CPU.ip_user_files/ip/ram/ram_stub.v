@@ -1,10 +1,10 @@
 // Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2015.4 (win64) Build 1412921 Wed Nov 18 09:43:45 MST 2015
-// Date        : Sun May 22 11:10:38 2016
+// Date        : Sun May 22 20:07:20 2016
 // Host        : cuilaptop running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram_stub.v
+//               D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram_stub.v
 // Design      : ram
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcpg236-1
