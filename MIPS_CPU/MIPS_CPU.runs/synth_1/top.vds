@@ -2,8 +2,8 @@
 # Vivado v2015.4 (64-bit)
 # SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
 # IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
-# Start of session at: Sat May 21 16:12:18 2016
-# Process ID: 11328
+# Start of session at: Sun May 22 11:42:18 2016
+# Process ID: 15312
 # Current directory: D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1
 # Command line: vivado.exe -log top.vds -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file: D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/top.vds
@@ -15,10 +15,10 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 285.902 ; gain = 114.703
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 285.875 ; gain = 114.637
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'top' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:23]
-INFO: [Synth 8-638] synthesizing module 'processor' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:23]
+INFO: [Synth 8-638] synthesizing module 'top' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/top.v:23]
+INFO: [Synth 8-638] synthesizing module 'processor' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/processor.v:23]
 	Parameter A_NOP bound to: 5'b00000 
 	Parameter A_ADD bound to: 5'b00001 
 	Parameter A_SUB bound to: 5'b00010 
@@ -40,20 +40,126 @@ INFO: [Synth 8-638] synthesizing module 'processor' [D:/project/MIPS/USTC-tMIPS/
 	Parameter IorD_D bound to: 2'b01 
 	Parameter BOOT_ADDR bound to: 0 - type: integer 
 	Parameter J_TYPE_OP bound to: 5'b00001 
-WARNING: [Synth 8-3848] Net PCBranch in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:60]
-WARNING: [Synth 8-3848] Net PCSrcID in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:37]
-WARNING: [Synth 8-3848] Net StallIF in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:55]
-WARNING: [Synth 8-3848] Net dmem_a in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:29]
-WARNING: [Synth 8-3848] Net dmem_wd in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:31]
-WARNING: [Synth 8-3848] Net dmem_we in module/entity processor does not have driver. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:32]
-INFO: [Synth 8-256] done synthesizing module 'processor' (1#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/processor.v:23]
-WARNING: [Synth 8-350] instance 'processor1' of module 'processor' requires 9 connections, but only 4 given [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-INFO: [Synth 8-638] synthesizing module 'rom' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-11328-/realtime/rom_stub.v:7]
-INFO: [Synth 8-256] done synthesizing module 'rom' (2#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-11328-/realtime/rom_stub.v:7]
-WARNING: [Synth 8-689] width (32) of port connection 'a' does not match port width (6) of module 'rom' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:36]
-INFO: [Synth 8-256] done synthesizing module 'top' (3#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:23]
+	Parameter AddrSrc_IM bound to: 1'b0 
+	Parameter AddrSrc_REG bound to: 1'b1 
+	Parameter ForwardAEX_NONE bound to: 2'b00 
+	Parameter ForwardAEX_ALU bound to: 2'b10 
+	Parameter ForwardAEX_MEM bound to: 2'b01 
+	Parameter ForwardBEX_NONE bound to: 2'b00 
+	Parameter ForwardBEX_ALU bound to: 2'b10 
+	Parameter ForwardBEX_MEM bound to: 2'b01 
+INFO: [Synth 8-638] synthesizing module 'register' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/register.v:21]
+INFO: [Synth 8-256] done synthesizing module 'register' (1#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/register.v:21]
+INFO: [Synth 8-638] synthesizing module 'control_unit' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/control_unit.v:23]
+	Parameter A_NOP bound to: 5'b00000 
+	Parameter A_ADD bound to: 5'b00001 
+	Parameter A_SUB bound to: 5'b00010 
+	Parameter A_AND bound to: 5'b00011 
+	Parameter A_OR bound to: 5'b00100 
+	Parameter A_XOR bound to: 5'b00101 
+	Parameter A_NOR bound to: 5'b00110 
+	Parameter MemtoReg_MEM bound to: 1'b1 
+	Parameter MemtoReg_ALU bound to: 1'b0 
+	Parameter RegDst_rt bound to: 1'b0 
+	Parameter RegDst_rd bound to: 1'b1 
+	Parameter ALUSrc_REG bound to: 1'b0 
+	Parameter ALUSrc_IM bound to: 1'b1 
+	Parameter PCSrcIF_ADD4 bound to: 1'b0 
+	Parameter PCSrcIF_J bound to: 1'b1 
+	Parameter PCSrcID_BR bound to: 1'b1 
+	Parameter PCSrcID_NORM bound to: 1'b0 
+	Parameter IorD_I bound to: 2'b00 
+	Parameter IorD_D bound to: 2'b01 
+	Parameter BOOT_ADDR bound to: 0 - type: integer 
+	Parameter J_TYPE_OP bound to: 5'b00001 
+	Parameter AddrSrc_IM bound to: 1'b0 
+	Parameter AddrSrc_REG bound to: 1'b1 
+	Parameter ForwardAEX_NONE bound to: 2'b00 
+	Parameter ForwardAEX_ALU bound to: 2'b10 
+	Parameter ForwardAEX_MEM bound to: 2'b01 
+	Parameter ForwardBEX_NONE bound to: 2'b00 
+	Parameter ForwardBEX_ALU bound to: 2'b10 
+	Parameter ForwardBEX_MEM bound to: 2'b01 
+	Parameter OP_REG_CALC bound to: 6'b000000 
+	Parameter OP_LW bound to: 6'b100011 
+	Parameter OP_SW bound to: 6'b101011 
+	Parameter FUNCT_ADD bound to: 6'b100000 
+	Parameter FUNCT_JR bound to: 6'b001000 
+INFO: [Synth 8-256] done synthesizing module 'control_unit' (2#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/control_unit.v:23]
+INFO: [Synth 8-638] synthesizing module 'branch_de' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/branch_de.v:23]
+INFO: [Synth 8-256] done synthesizing module 'branch_de' (3#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/branch_de.v:23]
+INFO: [Synth 8-638] synthesizing module 'alu' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/alu.v:21]
+	Parameter A_NOP bound to: 5'b00000 
+	Parameter A_ADD bound to: 5'b00001 
+	Parameter A_SUB bound to: 5'b00010 
+	Parameter A_AND bound to: 5'b00011 
+	Parameter A_OR bound to: 5'b00100 
+	Parameter A_XOR bound to: 5'b00101 
+	Parameter A_NOR bound to: 5'b00110 
+	Parameter MemtoReg_MEM bound to: 1'b1 
+	Parameter MemtoReg_ALU bound to: 1'b0 
+	Parameter RegDst_rt bound to: 1'b0 
+	Parameter RegDst_rd bound to: 1'b1 
+	Parameter ALUSrc_REG bound to: 1'b0 
+	Parameter ALUSrc_IM bound to: 1'b1 
+	Parameter PCSrcIF_ADD4 bound to: 1'b0 
+	Parameter PCSrcIF_J bound to: 1'b1 
+	Parameter PCSrcID_BR bound to: 1'b1 
+	Parameter PCSrcID_NORM bound to: 1'b0 
+	Parameter IorD_I bound to: 2'b00 
+	Parameter IorD_D bound to: 2'b01 
+	Parameter BOOT_ADDR bound to: 0 - type: integer 
+	Parameter J_TYPE_OP bound to: 5'b00001 
+	Parameter AddrSrc_IM bound to: 1'b0 
+	Parameter AddrSrc_REG bound to: 1'b1 
+	Parameter ForwardAEX_NONE bound to: 2'b00 
+	Parameter ForwardAEX_ALU bound to: 2'b10 
+	Parameter ForwardAEX_MEM bound to: 2'b01 
+	Parameter ForwardBEX_NONE bound to: 2'b00 
+	Parameter ForwardBEX_ALU bound to: 2'b10 
+	Parameter ForwardBEX_MEM bound to: 2'b01 
+INFO: [Synth 8-256] done synthesizing module 'alu' (4#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/alu.v:21]
+INFO: [Synth 8-638] synthesizing module 'hazard_unit' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/hazard_unit.v:23]
+	Parameter A_NOP bound to: 5'b00000 
+	Parameter A_ADD bound to: 5'b00001 
+	Parameter A_SUB bound to: 5'b00010 
+	Parameter A_AND bound to: 5'b00011 
+	Parameter A_OR bound to: 5'b00100 
+	Parameter A_XOR bound to: 5'b00101 
+	Parameter A_NOR bound to: 5'b00110 
+	Parameter MemtoReg_MEM bound to: 1'b1 
+	Parameter MemtoReg_ALU bound to: 1'b0 
+	Parameter RegDst_rt bound to: 1'b0 
+	Parameter RegDst_rd bound to: 1'b1 
+	Parameter ALUSrc_REG bound to: 1'b0 
+	Parameter ALUSrc_IM bound to: 1'b1 
+	Parameter PCSrcIF_ADD4 bound to: 1'b0 
+	Parameter PCSrcIF_J bound to: 1'b1 
+	Parameter PCSrcID_BR bound to: 1'b1 
+	Parameter PCSrcID_NORM bound to: 1'b0 
+	Parameter IorD_I bound to: 2'b00 
+	Parameter IorD_D bound to: 2'b01 
+	Parameter BOOT_ADDR bound to: 0 - type: integer 
+	Parameter J_TYPE_OP bound to: 5'b00001 
+	Parameter AddrSrc_IM bound to: 1'b0 
+	Parameter AddrSrc_REG bound to: 1'b1 
+	Parameter ForwardAEX_NONE bound to: 2'b00 
+	Parameter ForwardAEX_ALU bound to: 2'b10 
+	Parameter ForwardAEX_MEM bound to: 2'b01 
+	Parameter ForwardBEX_NONE bound to: 2'b00 
+	Parameter ForwardBEX_ALU bound to: 2'b10 
+	Parameter ForwardBEX_MEM bound to: 2'b01 
+INFO: [Synth 8-256] done synthesizing module 'hazard_unit' (5#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/hazard_unit.v:23]
+INFO: [Synth 8-256] done synthesizing module 'processor' (6#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/processor.v:23]
+INFO: [Synth 8-638] synthesizing module 'data_mem' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/data_mem.v:23]
+INFO: [Synth 8-638] synthesizing module 'ram' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/realtime/ram_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'ram' (7#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/realtime/ram_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'data_mem' (8#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/data_mem.v:23]
+INFO: [Synth 8-638] synthesizing module 'rom' [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/realtime/rom_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'rom' (9#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/realtime/rom_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'top' (10#1) [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/top.v:23]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 322.238 ; gain = 151.039
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 322.059 ; gain = 150.820
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -62,109 +168,85 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
-WARNING: [Synth 8-3295] tying undriven pin processor1:irq to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[31] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[30] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[29] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[28] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[27] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[26] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[25] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[24] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[23] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[22] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[21] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[20] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[19] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[18] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[17] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[16] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[15] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[14] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[13] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[12] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[11] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[10] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[9] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[8] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[7] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[6] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[5] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[4] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[3] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[2] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[1] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
-WARNING: [Synth 8-3295] tying undriven pin processor1:dmem_rd[0] to constant 0 [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/new/top.v:28]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 322.238 ; gain = 151.039
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 322.059 ; gain = 150.820
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a35tcpg236-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-11328-/dcp/rom_in_context.xdc] for cell 'rom1'
-Finished Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-11328-/dcp/rom_in_context.xdc] for cell 'rom1'
+Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/dcp/rom_in_context.xdc] for cell 'rom1'
+Finished Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/dcp/rom_in_context.xdc] for cell 'rom1'
+Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/dcp_2/ram_in_context.xdc] for cell '_data_mem/ram1'
+Finished Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/.Xil/Vivado-15312-/dcp_2/ram_in_context.xdc] for cell '_data_mem/ram1'
 Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc]
-WARNING: [Vivado 12-584] No ports matched 'led[0]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:47]
-WARNING: [Vivado 12-584] No ports matched 'led[0]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:48]
-WARNING: [Vivado 12-584] No ports matched 'led[1]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:49]
-WARNING: [Vivado 12-584] No ports matched 'led[1]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:50]
-WARNING: [Vivado 12-584] No ports matched 'led[2]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:51]
-WARNING: [Vivado 12-584] No ports matched 'led[2]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:52]
-WARNING: [Vivado 12-584] No ports matched 'led[3]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:53]
-WARNING: [Vivado 12-584] No ports matched 'led[3]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:54]
-WARNING: [Vivado 12-584] No ports matched 'led[4]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:55]
-WARNING: [Vivado 12-584] No ports matched 'led[4]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:56]
-WARNING: [Vivado 12-584] No ports matched 'led[5]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:57]
-WARNING: [Vivado 12-584] No ports matched 'led[5]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:58]
-WARNING: [Vivado 12-584] No ports matched 'led[6]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:59]
-WARNING: [Vivado 12-584] No ports matched 'led[6]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:60]
-WARNING: [Vivado 12-584] No ports matched 'led[7]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:61]
-WARNING: [Vivado 12-584] No ports matched 'led[7]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:62]
-WARNING: [Vivado 12-584] No ports matched 'led[8]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:63]
-WARNING: [Vivado 12-584] No ports matched 'led[8]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:64]
-WARNING: [Vivado 12-584] No ports matched 'led[9]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:65]
-WARNING: [Vivado 12-584] No ports matched 'led[9]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:66]
-WARNING: [Vivado 12-584] No ports matched 'led[10]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:67]
-WARNING: [Vivado 12-584] No ports matched 'led[10]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:68]
-WARNING: [Vivado 12-584] No ports matched 'led[11]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:69]
-WARNING: [Vivado 12-584] No ports matched 'led[11]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:70]
-WARNING: [Vivado 12-584] No ports matched 'led[12]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:71]
-WARNING: [Vivado 12-584] No ports matched 'led[12]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:72]
-WARNING: [Vivado 12-584] No ports matched 'led[13]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:73]
-WARNING: [Vivado 12-584] No ports matched 'led[13]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:74]
-WARNING: [Vivado 12-584] No ports matched 'led[14]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:75]
-WARNING: [Vivado 12-584] No ports matched 'led[14]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:76]
-WARNING: [Vivado 12-584] No ports matched 'led[15]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:77]
-WARNING: [Vivado 12-584] No ports matched 'led[15]'. [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc:78]
 Finished Parsing XDC File [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc]
-WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/constrs_1/imports/MIPS_CPU/Basys3_Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 580.895 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 606.500 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "mem_reg[31]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[30]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[29]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[28]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[27]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[26]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[25]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[24]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[23]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[22]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[21]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[20]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[19]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[18]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[17]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[16]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[15]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[14]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[13]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[12]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[11]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[10]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[9]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[8]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[7]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[6]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[5]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[4]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[3]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[2]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[1]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "mem_reg[0]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "RegWrite" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "MemtoReg" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "MemWrite" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "ALUSrc" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "AddrSrc" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-3537] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the inputs of the operator [D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/alu.v:29]
 INFO: [Synth 8-5546] ROM "PCSrcIF" won't be mapped to RAM because it is too sparse
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -177,13 +259,26 @@ Start RTL Component Statistics
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
+	   3 Input     32 Bit       Adders := 1     
 	   2 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
 +---Registers : 
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 42    
+	               16 Bit    Registers := 1     
+	                5 Bit    Registers := 3     
+	                1 Bit    Registers := 10    
 +---Muxes : 
+	   2 Input     32 Bit        Muxes := 15    
+	   8 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 1     
 	   3 Input     32 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input      5 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 35    
+	   3 Input      1 Bit        Muxes := 4     
+	   4 Input      1 Bit        Muxes := 5     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -191,16 +286,50 @@ Finished RTL Component Statistics
 Start RTL Hierarchical Component Statistics 
 ---------------------------------------------------------------------------------
 Hierarchical RTL Component report 
+Module register 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 32    
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 32    
+Module control_unit 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input      2 Bit        Muxes := 2     
+	   3 Input      1 Bit        Muxes := 4     
+	   4 Input      1 Bit        Muxes := 5     
+Module alu 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   8 Input     32 Bit        Muxes := 1     
+Module hazard_unit 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 1     
 Module processor 
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input     32 Bit       Adders := 1     
 +---Registers : 
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 10    
+	                5 Bit    Registers := 3     
+	                1 Bit    Registers := 10    
 +---Muxes : 
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 13    
 	   3 Input     32 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      5 Bit        Muxes := 2     
 	   2 Input      1 Bit        Muxes := 2     
+Module data_mem 
+Detailed RTL Component Info : 
++---Registers : 
+	               16 Bit    Registers := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -213,16 +342,16 @@ BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5546] ROM "processor1/PCSrcIF" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "processor1/PCSrcIF" won't be mapped to RAM because it is too sparse
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Parallel Reinference  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 606.500 ; gain = 435.262
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -232,6 +361,63 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Area Optimization
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[31] ' (FDC) to '\processor1/IDEX_IM_reg[15] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[15] ' (FDC) to '\processor1/IDEX_IM_reg[16] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[16] ' (FDC) to '\processor1/IDEX_IM_reg[17] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[17] ' (FDC) to '\processor1/IDEX_IM_reg[18] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[18] ' (FDC) to '\processor1/IDEX_IM_reg[19] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[19] ' (FDC) to '\processor1/IDEX_IM_reg[20] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[20] ' (FDC) to '\processor1/IDEX_IM_reg[21] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[21] ' (FDC) to '\processor1/IDEX_IM_reg[22] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[22] ' (FDC) to '\processor1/IDEX_IM_reg[23] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[23] ' (FDC) to '\processor1/IDEX_IM_reg[24] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[24] ' (FDC) to '\processor1/IDEX_IM_reg[25] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[25] ' (FDC) to '\processor1/IDEX_IM_reg[26] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[26] ' (FDC) to '\processor1/IDEX_IM_reg[27] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[27] ' (FDC) to '\processor1/IDEX_IM_reg[28] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[28] ' (FDC) to '\processor1/IDEX_IM_reg[29] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IM_reg[29] ' (FDC) to '\processor1/IDEX_IM_reg[30] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_ALUControl_reg[1] ' (FDC) to '\processor1/IDEX_ALUControl_reg[2] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_ALUControl_reg[2] ' (FDC) to '\processor1/IDEX_ALUControl_reg[3] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_ALUControl_reg[3] ' (FDC) to '\processor1/IDEX_ALUControl_reg[4] '
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\processor1/IDEX_ALUControl_reg[4] )
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_ALUControl_reg[4] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_ALUControl_reg[3] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_ALUControl_reg[2] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_ALUControl_reg[1] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[31] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[29] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[28] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[27] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[26] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[25] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[24] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[23] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[22] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[21] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[20] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[19] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[18] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[17] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[16] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IM_reg[15] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[31] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[30] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[29] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[28] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[27] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[26] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[10] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[9] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[8] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[7] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[6] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[5] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[4] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[3] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[2] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[1] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[0] ) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[31] ) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[30] ) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[29] ) is unused and will be removed from module top.
@@ -256,12 +442,23 @@ WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[11] ) is unused a
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[10] ) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[9] ) is unused and will be removed from module top.
 WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[8] ) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[7] ) is unused and will be removed from module top.
-WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[6] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[0] ) is unused and will be removed from module top.
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IR_reg[14] ' (FDC) to '\processor1/IDEX_IM_reg[14] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IR_reg[15] ' (FDC) to '\processor1/IDEX_IM_reg[30] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IR_reg[11] ' (FDC) to '\processor1/IDEX_IM_reg[11] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IR_reg[12] ' (FDC) to '\processor1/IDEX_IM_reg[12] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_IR_reg[13] ' (FDC) to '\processor1/IDEX_IM_reg[13] '
+INFO: [Synth 8-3886] merging instance '\processor1/IDEX_ALUSrc_reg ' (FDC) to '\processor1/IDEX_ALUControl_reg[0] '
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_ALUSrc_reg ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[14] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[15] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[11] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[12] ) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (\processor1/IDEX_IR_reg[13] ) is unused and will be removed from module top.
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Area Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 606.500 ; gain = 435.262
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 606.500 ; gain = 435.262
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -275,10 +472,10 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 617.105 ; gain = 445.867
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 580.895 ; gain = 409.695
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:41 . Memory (MB): peak = 619.090 ; gain = 447.852
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -289,18 +486,17 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-3332] Sequential element (\processor1/PC_reg[0] ) is unused and will be removed from module top.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:42 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
-Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:39 ; elapsed = 00:00:42 . Memory (MB): peak = 644.117 ; gain = 472.879
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:29 ; elapsed = 00:00:32 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:39 ; elapsed = 00:00:42 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -317,7 +513,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished IO Insertion : Time (s): cpu = 00:00:40 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -330,7 +526,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -342,25 +538,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -371,47 +567,58 @@ Report BlackBoxes:
 |      |BlackBox name |Instances |
 +------+--------------+----------+
 |1     |rom           |         1|
+|2     |ram           |         1|
 +------+--------------+----------+
 
 Report Cell Usage: 
 +------+-------+------+
 |      |Cell   |Count |
 +------+-------+------+
-|1     |rom    |     1|
-|2     |BUFG   |     1|
-|3     |CARRY4 |     2|
-|4     |LUT1   |     6|
-|5     |LUT3   |     4|
-|6     |LUT5   |     1|
-|7     |LUT6   |     1|
-|8     |FDCE   |     5|
-|9     |IBUF   |     2|
+|1     |ram    |     1|
+|2     |rom    |     1|
+|3     |BUFG   |     1|
+|4     |CARRY4 |    10|
+|5     |LUT1   |    19|
+|6     |LUT2   |    38|
+|7     |LUT3   |   104|
+|8     |LUT4   |     6|
+|9     |LUT5   |    91|
+|10    |LUT6   |   684|
+|11    |MUXF7  |   256|
+|12    |MUXF8  |   128|
+|13    |FDCE   |  1307|
+|14    |FDRE   |    16|
+|15    |IBUF   |     2|
+|16    |OBUF   |    16|
 +------+-------+------+
 
 Report Instance Areas: 
-+------+-------------+----------+------+
-|      |Instance     |Module    |Cells |
-+------+-------------+----------+------+
-|1     |top          |          |    54|
-|2     |  processor1 |processor |    19|
-+------+-------------+----------+------+
++------+--------------+----------+------+
+|      |Instance      |Module    |Cells |
++------+--------------+----------+------+
+|1     |top           |          |  2742|
+|2     |  _data_mem   |data_mem  |    48|
+|3     |  processor1  |processor |  2642|
+|4     |    alu1      |alu       |   180|
+|5     |    register1 |register  |  2071|
++------+--------------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 27 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:24 . Memory (MB): peak = 594.750 ; gain = 116.945
-Synthesis Optimization Complete : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 594.750 ; gain = 423.551
+Synthesis finished with 0 errors, 0 critical warnings and 68 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 644.117 ; gain = 140.684
+Synthesis Optimization Complete : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 644.117 ; gain = 472.879
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 12 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 1024 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-20 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
+99 Infos, 68 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 594.750 ; gain = 383.230
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 594.750 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sat May 21 16:12:53 2016...
+synth_design: Time (s): cpu = 00:00:40 ; elapsed = 00:00:41 . Memory (MB): peak = 644.117 ; gain = 432.855
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 644.117 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sun May 22 11:43:04 2016...

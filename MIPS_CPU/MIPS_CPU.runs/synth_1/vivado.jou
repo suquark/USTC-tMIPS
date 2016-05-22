@@ -2,8 +2,8 @@
 # Vivado v2015.4 (64-bit)
 # SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
 # IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
-# Start of session at: Sat May 21 16:12:18 2016
-# Process ID: 11328
+# Start of session at: Sun May 22 11:42:18 2016
+# Process ID: 15312
 # Current directory: D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1
 # Command line: vivado.exe -log top.vds -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file: D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.runs/synth_1/top.vds
