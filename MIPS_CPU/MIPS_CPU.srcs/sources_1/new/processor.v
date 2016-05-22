@@ -29,7 +29,7 @@ module processor(
     output [31:0] dmem_a,
     input [31:0] dmem_rd,
     output [31:0] dmem_wd,
-    output [31:0] dmem_we
+    output dmem_we
     );
     
     wire [31:0] nPC;
@@ -39,7 +39,7 @@ module processor(
     reg [31:0] IFID_IR, IFID_PC;
     
     reg IDEX_RegWrite, IDEX_MemtoReg, IDEX_MemWrite, IDEX_ALUSrc, IDEX_RegDst, IDEX_Jump;
-    reg [3:0] IDEX_ALUControl[3:0];
+    reg [3:0] IDEX_ALUControl;
     reg [31:0] IDEX_IM, IDEX_A, IDEX_B, IDEX_IR;
     
     reg EXMEM_RegWrite, EXMEM_MemtoReg, EXMEM_MemWrite;
@@ -48,7 +48,8 @@ module processor(
     reg MEMWB_RegWrite, MEMWB_MemtoReg;
     reg [31:0] MEMWB_ALUOut, MEMWB_ReadData, MEMWB_WriteReg;
     
-    wire [4:0] IFID_rd, IFID_rt, IFID_rs, IFID_op;
+    wire [4:0] IFID_rd, IFID_rt, IFID_rs;
+    wire [5:0] IFID_funct, IFID_op;
     wire [4:0] MEMWB_WriteReg;
     wire [31:0] MEMWB_Result;
     //stall signal
@@ -80,7 +81,7 @@ module processor(
             IFID_IR <= 32'b0;
             IFID_PC <=  BOOT_ADDR;
         end else begin
-            if (StallIF) begin
+            if (StallID) begin
                 IFID_IR[31:0] <= IFID_IR[31:0];
                 IFID_PC[31:0] <= IFID_PC[31:0];
             end else begin
@@ -115,7 +116,7 @@ module processor(
     
     wire [31:0] reg_r1_dout, reg_r2_dout;
     register register1(
-        .clk        (clk),
+        .clk        (~clk),
         .rst_n      (rst_n),
         .r1_addr    (IFID_rs),
         .r2_addr    (IFID_rd),
@@ -132,8 +133,8 @@ module processor(
     wire ADDR_Src;
     wire cu_PCSrcID;
     control_unit cu1(
-        .op     (IFID_op[5:0]),
-        .funct  (IFID_funct[5:0]),
+        .op         (IFID_op[5:0]),
+        .funct      (IFID_funct[5:0]),
         .RegWrite   (cu_IDEX_RegWrite),
         .MemtoReg   (cu_IDEX_MemtoReg),
         .MemWrite   (cu_IDEX_MemWrite),
@@ -143,8 +144,8 @@ module processor(
         .BranchN    (cu_IDEX_Branchn),
         .BranchZ    (cu_IDEX_Branchz),
         .BranchP    (cu_IDEX_Branchp),
-        .AddrSrc   (ADDR_Src),
-        .PCSrcID    (cu_PCSrcID)
+        .AddrSrc    (ADDR_Src),
+        .Branch     (cu_PCSrcID)
     );
     
     wire [15:0] immediate;
@@ -187,7 +188,7 @@ module processor(
                 IDEX_ALUSrc <= cu_IDEX_ALUControl;
                 IDEX_RegDst <= cu_IDEX_RegDst;
                 IDEX_IM <= ext_immediate[31:0];
-                IDEX_IR <= IDIF_IR;
+                IDEX_IR <= IFID_IR;
                 IDEX_A <= real_a;
                 IDEX_B <= real_b;
             end
@@ -205,9 +206,8 @@ module processor(
     );
      
     assign PCSrcID = cu_PCSrcID || (cu_IDEX_Branchn && br_n) || (cu_IDEX_Branchz && br_z) || (cu_IDEX_Branchp && br_p);
-    
-    
-    
+
+
     wire [31:0] ALU_in_a, ALU_in_b, ALU_ALUOut;
     alu alu1
     (
@@ -221,9 +221,15 @@ module processor(
     assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:(
     (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?EXMEM_ALUOut:MEMWB_Result));
     
-    wire [31:0] EX_rd, EX_rt;
+
+
+    wire [4:0] EX_rd, EX_rt;
     assign EX_rt[4:0] = IDEX_IR[20:16];
-    assign EX_rd[4:0] = IDEX_ID[15:11];
+    assign EX_rd[4:0] = IDEX_IR[15:11];
+    
+    assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
+    wire [4:0] EX_WriteReg = (IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0];
+    
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -239,7 +245,7 @@ module processor(
             EXMEM_MemWrite <= IDEX_MemWrite;
             EXMEM_ALUOut <= ALU_ALUOut;
             EXMEM_WriteData <= ALU_in_b;
-            EXMEM_WriteReg <= (IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0];
+            EXMEM_WriteReg <= EX_WriteReg;
         end
     end
     
@@ -264,8 +270,26 @@ module processor(
         end
     end
     
-    
-    
-    assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
-    
+    hazard_unit _hazard_unit(
+        .Branch(PCSrcID),
+        .RsID(IFID_rs),
+        .RtID(IFID_rt),
+        .MemtoRegEX(IDEX_MemtoReg),
+        .RegWriteEX(IDEX_RegWrite),
+        .RsEX(IDEX_IR[25:21]),
+        .RtEX(IDEX_IR[20:16]),
+        .WriteRegEX(EX_WriteReg),
+        .MemtoRegMEM(EXMEM_MemtoReg),
+        .RegWriteMEM(EXMEM_RegWrite),
+        .WriteRegMEM(EXMEM_WriteReg),
+        .RegWriteWB(MEMWB_RegWrite),
+        .WriteRegWB(MEMWB_WriteReg),
+        .StallIF(StallIF),
+        .StallID(StallID),
+        .ForwardAID(ForwardAID),
+        .ForwardBID(ForwardBID),
+        .ForwardAEX(ForwardAEX),
+        .ForwardBEX(ForwardBEX),
+        .FlushEX(FlushEX)
+    );
 endmodule

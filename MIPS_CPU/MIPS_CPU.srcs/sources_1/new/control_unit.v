@@ -33,7 +33,7 @@ module control_unit(
     output BranchZ,
     output BranchP,
     output AddrSrc,
-    output PCSrcID
+    output Branch
     );
     
     `include "param.v"
@@ -62,7 +62,7 @@ module control_unit(
                         ALUSrc = ALUSrc_REG;
                         RegDst = 1;
                         AddrSrc = AddrSrc_IM;
-                        PCSrcID = PCSrcID_NORM;
+                        Branch = PCSrcID_NORM;
                     end
                     FUNCT_JR:  begin
                         RegWrite = 0;
@@ -72,7 +72,7 @@ module control_unit(
                         ALUSrc = ALUSrc_REG;
                         RegDst = 0;
                         AddrSrc = AddrSrc_REG;
-                        PCSrcID = PCSrcID_BR;
+                        Branch = PCSrcID_BR;
                     end
                 endcase
             end
@@ -84,7 +84,7 @@ module control_unit(
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
                 AddrSrc = AddrSrc_IM;
-                PCSrcID = PCSrcID_NORM;
+                Branch = PCSrcID_NORM;
             end
             OP_SW:       begin
                 RegWrite = 0;
@@ -94,7 +94,7 @@ module control_unit(
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
                 AddrSrc = AddrSrc_IM;
-                PCSrcID = PCSrcID_NORM;
+                Branch = PCSrcID_NORM;
             end
             default:     begin
                 RegWrite = 0;
@@ -104,7 +104,7 @@ module control_unit(
                 ALUSrc = 0;
                 RegDst = RegDst_rt;
                 AddrSrc = AddrSrc_IM;
-                PCSrcID = PCSrcID_NORM;
+                Branch = PCSrcID_NORM;
             end
         endcase
     end
