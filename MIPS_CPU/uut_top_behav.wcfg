@@ -11,11 +11,11 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="133000001fs"></ZoomEndTime>
-      <Cursor1Time time="1000fs"></Cursor1Time>
+      <ZoomStartTime time="215416666fs"></ZoomStartTime>
+      <ZoomEndTime time="250916667fs"></ZoomEndTime>
+      <Cursor1Time time="230417000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="11" />
    <wvobject db_ref_id="1" fp_name="/uut_top/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
@@ -28,5 +28,39 @@
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/a" type="array">
+      <obj_property name="ElementShortName">a[9:0]</obj_property>
+      <obj_property name="ObjectShortName">a[9:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/d" type="array">
+      <obj_property name="ElementShortName">d[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/U0/memory" type="array">
+      <obj_property name="ElementShortName">memory[1023:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[1023:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/mem" type="array">
+      <obj_property name="ElementShortName">mem[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[31:0][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_addr" type="array">
+      <obj_property name="ElementShortName">r3_addr[4:0]</obj_property>
+      <obj_property name="ObjectShortName">r3_addr[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_din" type="array">
+      <obj_property name="ElementShortName">r3_din[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r3_din[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_wr" type="logic">
+      <obj_property name="ElementShortName">r3_wr</obj_property>
+      <obj_property name="ObjectShortName">r3_wr</obj_property>
    </wvobject>
 </wave_config>

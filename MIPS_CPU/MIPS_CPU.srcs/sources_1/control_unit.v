@@ -29,9 +29,9 @@ module control_unit(
     output reg [4:0] ALUControl,
     output reg ALUSrc,
     output reg RegDst,
-    output BranchN,
-    output BranchZ,
-    output BranchP,
+    output reg BranchN,
+    output reg BranchZ,
+    output reg BranchP,
     output reg AddrSrc,
     output reg Branch
     );

@@ -82,12 +82,17 @@ module processor(
             IFID_IR <= 32'b0;
             IFID_PC <=  BOOT_ADDR;
         end else begin
-            if (StallID) begin
-                IFID_IR[31:0] <= IFID_IR[31:0];
-                IFID_PC[31:0] <= IFID_PC[31:0];
+            if (PCSrcID) begin
+                IFID_IR <= 32'b0;
+                IFID_PC <= BOOT_ADDR;
             end else begin
-                IFID_IR[31:0] <= imem_d[31:0];
-                IFID_PC[31:0] <= nPC[31:0];
+                if (StallID) begin
+                    IFID_IR[31:0] <= IFID_IR[31:0];
+                    IFID_PC[31:0] <= IFID_PC[31:0];
+                end else begin
+                    IFID_IR[31:0] <= imem_d[31:0];
+                    IFID_PC[31:0] <= nPC[31:0];
+                end
             end
         end
     end
@@ -120,7 +125,7 @@ module processor(
         .clk        (~clk),
         .rst_n      (rst_n),
         .r1_addr    (IFID_rs),
-        .r2_addr    (IFID_rd),
+        .r2_addr    (IFID_rt),
         .r3_addr    (MEMWB_WriteReg),
         .r3_din     (MEMWB_Result),
         .r3_wr      (MEMWB_RegWrite),
@@ -153,9 +158,9 @@ module processor(
     wire [31:0] ext_immediate;
     assign immediate[15:0] = IFID_IR[15:0];
     assign ext_immediate[31:0] = {{16{immediate[15]}}, immediate[15:0]};
-    wire [31:0] real_a, real_b;
-    assign real_a = ForwardAID?EXMEM_ALUOut:reg_r1_dout;
-    assign real_b = ForwardBID?EXMEM_ALUOut:reg_r2_dout;
+    wire [31:0] DE_real_a, DE_real_b;
+    assign DE_real_a = ForwardAID?EXMEM_ALUOut:reg_r1_dout;
+    assign DE_real_b = ForwardBID?EXMEM_ALUOut:reg_r2_dout;
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -190,17 +195,17 @@ module processor(
                 IDEX_RegDst <= cu_IDEX_RegDst;
                 IDEX_IM <= ext_immediate[31:0];
                 IDEX_IR <= IFID_IR;
-                IDEX_A <= real_a;
-                IDEX_B <= real_b;
+                IDEX_A <= DE_real_a;
+                IDEX_B <= DE_real_b;
             end
         end
     end
     
     wire br_n, br_z, br_p;
-    assign PCBranch = (ADDR_Src == AddrSrc_IM)?(ext_immediate << 2):real_a;
+    assign PCBranch = (ADDR_Src == AddrSrc_IM)?(ext_immediate << 2):DE_real_a;
     branch_de branch_de1(
-        .a (real_a),
-        .b  (real_b),
+        .a (DE_real_a),
+        .b  (DE_real_b),
         .n  (br_n),
         .z  (br_z),
         .p  (br_p)
@@ -219,9 +224,9 @@ module processor(
     );
     
     assign ALU_in_a = (ForwardAEX == ForwardAEX_NONE)?IDEX_A:((ForwardAEX == ForwardAEX_ALU)?EXMEM_ALUOut:MEMWB_Result);
-    assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:(
-    (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?EXMEM_ALUOut:MEMWB_Result));
-    
+    wire [31:0] EX_real_b;
+    assign EX_real_b = (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?EXMEM_ALUOut:MEMWB_Result);
+    assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:EX_real_b;
 
 
     wire [4:0] EX_rd, EX_rt;
@@ -245,7 +250,7 @@ module processor(
             EXMEM_RegWrite <= IDEX_RegWrite;
             EXMEM_MemWrite <= IDEX_MemWrite;
             EXMEM_ALUOut <= ALU_ALUOut;
-            EXMEM_WriteData <= ALU_in_b;
+            EXMEM_WriteData <= EX_real_b;
             EXMEM_WriteReg <= EX_WriteReg;
         end
     end

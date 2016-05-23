@@ -102,18 +102,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="d:/project/MIPS/USTC-tMIPS/MIPS_CPU/rom_init.coe"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.veo"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.vho"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="sim/rom.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.mif"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/simulation/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="synth/rom.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="doc/dist_mem_gen_v8_0_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.xml"/>
       </File>
       <File Path="$PSRCDIR/sources_1/top.v">
         <FileInfo>
