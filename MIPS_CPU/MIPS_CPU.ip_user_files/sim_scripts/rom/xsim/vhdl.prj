@@ -1,4 +1,0 @@
-vhdl dist_mem_gen_v8_0_9 "../../../ipstatic/dist_mem_gen_v8_0_9/simulation/dist_mem_gen_v8_0.vhd" 
-vhdl xil_defaultlib "../../../ip/rom/sim/rom.vhd" 
-
-nosort
