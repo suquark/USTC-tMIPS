@@ -83,18 +83,19 @@ module processor(
             IFID_IR <= 32'b0;
             IFID_PC <=  BOOT_ADDR;
         end else begin
-            if (PCSrcID) begin
-                IFID_IR <= 32'b0;
-                IFID_PC <= BOOT_ADDR;
-            end else begin
-                if (StallID) begin
-                    IFID_IR[31:0] <= IFID_IR[31:0];
-                    IFID_PC[31:0] <= IFID_PC[31:0];
+				if (StallID) begin
+					 IFID_IR[31:0] <= IFID_IR[31:0];
+					 IFID_PC[31:0] <= IFID_PC[31:0];
+				end else begin
+				    if (PCSrcID) begin
+                    IFID_IR <= 32'b0;
+                    IFID_PC <= BOOT_ADDR;
                 end else begin
-                    IFID_IR[31:0] <= imem_d[31:0];
-                    IFID_PC[31:0] <= nPC[31:0];
+					     IFID_IR[31:0] <= imem_d[31:0];
+					     IFID_PC[31:0] <= nPC[31:0];
                 end
-            end
+				end
+                
         end
     end
     

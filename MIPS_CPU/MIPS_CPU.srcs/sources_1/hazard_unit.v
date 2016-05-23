@@ -48,8 +48,8 @@ module hazard_unit(
     // Stall
     always @(*)
     begin
-        // Normal Load Stall
-        if (MemtoRegEX && WriteRegEX && (WriteRegEX == RsID || WriteRegEX == RtID)) begin
+        // Normal Load Stall or Stall Before Branch
+        if ((Branch | MemtoRegEX) && WriteRegEX && (WriteRegEX == RsID || WriteRegEX == RtID)) begin
             StallIF = 1;
             StallID = 1;
             FlushEX = 1;

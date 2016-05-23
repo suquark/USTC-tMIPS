@@ -22,6 +22,7 @@
 
 module data_mem(
     input clk,
+    input rst_n,
     input [31:0] address,
     input [31:0] data_in,
     input write_enabled,
@@ -29,10 +30,11 @@ module data_mem(
     output reg [15:0] led
     );
     
-    wire [15:0] led_next = (address == 32'hffff0100 & write_enabled) ? data_in[15:0] : led; 
+    wire [15:0] led_next = (address == 32'h0000204C & write_enabled) ? data_in[15:0] : led; 
     
-    always @(posedge clk) begin
-        led <= led_next;
+    always @(posedge clk or negedge rst_n) begin
+        if (~rst_n) led <= 16'h0000;
+        else led <= led_next;
     end
     
     ram ram1(

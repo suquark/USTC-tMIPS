@@ -133,7 +133,7 @@ module control_unit(
                 Branch = PCSrcID_NORM;
             end
             OP_BGTZ:     begin
-                RegWrite = 1;
+                RegWrite = 0;
                 MemtoReg = MemtoReg_ALU;
                 MemWrite = 0;
                 ALUControl = A_ADD;
@@ -143,7 +143,7 @@ module control_unit(
                 BranchZ = 0;
                 BranchP = 1;
                 AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_BR;
+                Branch = PCSrcID_NORM;
             end
             default:     begin
                 RegWrite = 0;

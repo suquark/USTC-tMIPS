@@ -21,7 +21,7 @@
 
 
 module top(
-    input clk,
+    input clk_orig,
     input rst_n,
     output [15:0] led
     );
@@ -29,6 +29,8 @@ module top(
     wire [31:0] imem_a, imem_d;
     wire [31:0] dmem_a, dmem_rd, dmem_wd;
     wire dmem_we;
+    
+    wire clk;
     
     processor processor1
     (
@@ -45,6 +47,7 @@ module top(
     
     data_mem _data_mem(
         .clk            (clk),
+        .rst_n          (rst_n),
         .address        (dmem_a),
         .data_in        (dmem_wd),
         .write_enabled  (dmem_we),
@@ -55,5 +58,10 @@ module top(
     rom rom1(
         .a  (imem_a[7:2]),
         .spo    (imem_d)
+    );
+    
+    slow_clk _slow_clk(
+        .clk_orig(clk_orig),
+        .clk(clk)
     );
 endmodule
