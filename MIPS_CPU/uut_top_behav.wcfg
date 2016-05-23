@@ -11,11 +11,11 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="215416666fs"></ZoomStartTime>
-      <ZoomEndTime time="250916667fs"></ZoomEndTime>
-      <Cursor1Time time="230417000fs"></Cursor1Time>
+      <ZoomStartTime time="116700000fs"></ZoomStartTime>
+      <ZoomEndTime time="146000001fs"></ZoomEndTime>
+      <Cursor1Time time="129200000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="23" />
    <wvobject db_ref_id="1" fp_name="/uut_top/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
@@ -29,6 +29,62 @@
       <obj_property name="ObjectShortName">PC[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IFID_IR" type="array">
+      <obj_property name="ElementShortName">IFID_IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IFID_IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IFID_PC" type="array">
+      <obj_property name="ElementShortName">IFID_PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IFID_PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_IR" type="array">
+      <obj_property name="ElementShortName">IDEX_IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/EXMEM_ALUOut" type="array">
+      <obj_property name="ElementShortName">EXMEM_ALUOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">EXMEM_ALUOut[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/MEMWB_ReadData" type="array">
+      <obj_property name="ElementShortName">MEMWB_ReadData[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MEMWB_ReadData[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/WriteRegMEM" type="array">
+      <obj_property name="ElementShortName">WriteRegMEM[4:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteRegMEM[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/RtID" type="array">
+      <obj_property name="ElementShortName">RtID[4:0]</obj_property>
+      <obj_property name="ObjectShortName">RtID[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/RsID" type="array">
+      <obj_property name="ElementShortName">RsID[4:0]</obj_property>
+      <obj_property name="ObjectShortName">RsID[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/StallIF" type="logic">
+      <obj_property name="ElementShortName">StallIF</obj_property>
+      <obj_property name="ObjectShortName">StallIF</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/StallID" type="logic">
+      <obj_property name="ElementShortName">StallID</obj_property>
+      <obj_property name="ObjectShortName">StallID</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardAID" type="logic">
+      <obj_property name="ElementShortName">ForwardAID</obj_property>
+      <obj_property name="ObjectShortName">ForwardAID</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardBID" type="logic">
+      <obj_property name="ElementShortName">ForwardBID</obj_property>
+      <obj_property name="ObjectShortName">ForwardBID</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardAEX" type="array">
+      <obj_property name="ElementShortName">ForwardAEX[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ForwardAEX[1:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardBEX" type="array">
+      <obj_property name="ElementShortName">ForwardBEX[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ForwardBEX[1:0]</obj_property>
+   </wvobject>
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/a" type="array">
       <obj_property name="ElementShortName">a[9:0]</obj_property>
       <obj_property name="ObjectShortName">a[9:0]</obj_property>
@@ -40,15 +96,6 @@
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/we" type="logic">
       <obj_property name="ElementShortName">we</obj_property>
       <obj_property name="ObjectShortName">we</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/U0/memory" type="array">
-      <obj_property name="ElementShortName">memory[1023:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">memory[1023:0][31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/mem" type="array">
-      <obj_property name="ElementShortName">mem[31:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">mem[31:0][31:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_addr" type="array">
       <obj_property name="ElementShortName">r3_addr[4:0]</obj_property>
