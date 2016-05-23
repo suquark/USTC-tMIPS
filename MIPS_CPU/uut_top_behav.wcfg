@@ -11,11 +11,11 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="116700000fs"></ZoomStartTime>
-      <ZoomEndTime time="146000001fs"></ZoomEndTime>
-      <Cursor1Time time="129200000fs"></Cursor1Time>
+      <ZoomStartTime time="116750000fs"></ZoomStartTime>
+      <ZoomEndTime time="150700001fs"></ZoomEndTime>
+      <Cursor1Time time="145000000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="23" />
+   <WVObjectSize size="32" />
    <wvobject db_ref_id="1" fp_name="/uut_top/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
@@ -109,5 +109,41 @@
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_wr" type="logic">
       <obj_property name="ElementShortName">r3_wr</obj_property>
       <obj_property name="ObjectShortName">r3_wr</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/mem" type="array">
+      <obj_property name="ElementShortName">mem[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[31:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_A" type="array">
+      <obj_property name="ElementShortName">IDEX_A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_A[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_B" type="array">
+      <obj_property name="ElementShortName">IDEX_B[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_B[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_in_a" type="array">
+      <obj_property name="ElementShortName">ALU_in_a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_in_a[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_in_b" type="array">
+      <obj_property name="ElementShortName">ALU_in_b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_in_b[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_ALUOut" type="array">
+      <obj_property name="ElementShortName">ALU_ALUOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_ALUOut[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/EX_real_b" type="array">
+      <obj_property name="ElementShortName">EX_real_b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_real_b[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_ALUSrc" type="logic">
+      <obj_property name="ElementShortName">IDEX_ALUSrc</obj_property>
+      <obj_property name="ObjectShortName">IDEX_ALUSrc</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/cu_IDEX_ALUSrc" type="logic">
+      <obj_property name="ElementShortName">cu_IDEX_ALUSrc</obj_property>
+      <obj_property name="ObjectShortName">cu_IDEX_ALUSrc</obj_property>
    </wvobject>
 </wave_config>

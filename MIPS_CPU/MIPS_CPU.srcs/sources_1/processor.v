@@ -191,7 +191,7 @@ module processor(
                 IDEX_MemtoReg <= cu_IDEX_MemtoReg;
                 IDEX_MemWrite <= cu_IDEX_MemWrite;
                 IDEX_ALUControl <= cu_IDEX_ALUControl;
-                IDEX_ALUSrc <= cu_IDEX_ALUControl;
+                IDEX_ALUSrc <= cu_IDEX_ALUSrc;
                 IDEX_RegDst <= cu_IDEX_RegDst;
                 IDEX_IM <= ext_immediate[31:0];
                 IDEX_IR <= IFID_IR;
