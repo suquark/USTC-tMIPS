@@ -16,15 +16,17 @@ set_property target_language Verilog [current_project]
 set_property vhdl_version vhdl_2k [current_fileset]
 add_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/rom_init.coe
 add_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/ram_init.coe
+add_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/test_coe/rom_init.coe
+add_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/test_coe/ram_init.coe
 read_verilog D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/param.v
 set_property file_type "Verilog Header" [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/param.v]
 read_ip D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram.xci
 set_property used_in_implementation false [get_files -all d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram_ooc.xdc]
 set_property is_locked true [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/ram/ram.xci]
 
-read_ip d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci
+read_ip D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci
 set_property used_in_implementation false [get_files -all d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom_ooc.xdc]
-set_property is_locked true [get_files d:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci]
+set_property is_locked true [get_files D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/ip/rom/rom.xci]
 
 read_verilog -library xil_defaultlib {
   D:/project/MIPS/USTC-tMIPS/MIPS_CPU/MIPS_CPU.srcs/sources_1/alu.v

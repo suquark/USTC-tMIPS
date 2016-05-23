@@ -75,7 +75,8 @@ module processor(
             end
         end
     end
-    
+    //wire IFID_rst_n;
+    //assign IFID_rst_n = rst_n && ~PCSrcID;
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -202,7 +203,7 @@ module processor(
     end
     
     wire br_n, br_z, br_p;
-    assign PCBranch = (ADDR_Src == AddrSrc_IM)?(ext_immediate << 2):DE_real_a;
+    assign PCBranch = (ADDR_Src == AddrSrc_IM)?({ext_immediate[29:0], 2'b0} + IFID_PC):DE_real_a;
     branch_de branch_de1(
         .a (DE_real_a),
         .b  (DE_real_b),
