@@ -1,5 +1,6 @@
-*
-!.gitignore
-!test_coe/
-!MIPS_CPU.xpr
-!MIPS_CPU.srcs/
+.Xil
+MIPS_CPU.cache/
+MIPS_CPU.hw/
+MIPS_CPU.ip_user_files/
+MIPS_CPU.runs/
+MIPS_CPU.sim/
