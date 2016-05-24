@@ -90,7 +90,7 @@ module processor(
 					 IFID_IR[31:0] <= IFID_IR[31:0];
 					 IFID_PC[31:0] <= IFID_PC[31:0];
 				end else begin
-				    if (PCSrcID) begin
+				    if (PCSrcID || interrupt) begin
                     IFID_IR <= 32'b0;
                     IFID_PC <= BOOT_ADDR;
                 end else begin
@@ -181,7 +181,7 @@ module processor(
             IDEX_B <= 32'b0;
             IDEX_IR[31:0] <= 32'b0;
         end else begin
-            if (FlushEX) begin
+            if (FlushEX || interrupt) begin
                  IDEX_RegWrite <= 1'b0;
                  IDEX_MemtoReg <= MemtoReg_ALU;
                  IDEX_MemWrite <= 1'b0;
