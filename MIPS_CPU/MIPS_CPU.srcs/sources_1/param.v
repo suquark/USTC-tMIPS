@@ -36,3 +36,7 @@ parameter ForwardAEX_MEM  = 2'b01;
 parameter ForwardBEX_NONE = 2'b00;
 parameter ForwardBEX_ALU  = 2'b10;
 parameter ForwardBEX_MEM  = 2'b01;
+
+parameter ISR_ADDR = 32'h0008;
+parameter EPC_REG  = 5'd26;
+parameter INT_ENABLE_ADDR = 32'h2100;

@@ -23,6 +23,7 @@
 module top(
     input clk_orig,
     input rst_n,
+    input irq,
     output [15:0] led
     );
     
@@ -31,12 +32,14 @@ module top(
     wire dmem_we;
     
     wire clk;
+    wire ack;
     
     processor processor1
     (
         .clk        (clk),
         .rst_n      (rst_n),
-        .irq        (1'b0),
+        .irq        (irq),
+        .interrupt        (ack),
         .imem_a     (imem_a),
         .imem_d     (imem_d),
         .dmem_a     (dmem_a),

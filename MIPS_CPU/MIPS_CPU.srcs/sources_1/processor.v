@@ -24,6 +24,7 @@ module processor(
     input clk,
     input rst_n,
     input irq,
+    output wire interrupt,
     output [31:0] imem_a,
     input [31:0] imem_d,
     output [31:0] dmem_a,
@@ -61,6 +62,8 @@ module processor(
     //flush signal
     wire FlushEX;
     wire [31:0] PCBranch;
+    
+    
     `include "param.v"
     
     
@@ -107,7 +110,8 @@ module processor(
     assign IF_op = imem_d[31:26];
     assign jump_address =  {PC[31:28], address, 2'b0};
     assign PCSrcIF = (IF_op[5:1] == J_TYPE_OP)?PCSrcIF_J:PCSrcIF_ADD4;
-    assign nPC = (PCSrcID == PCSrcID_NORM)?((PCSrcIF == PCSrcIF_ADD4)?PC+32'd4:jump_address):PCBranch;
+    assign nPC = interrupt?ISR_ADDR:((PCSrcID == PCSrcID_NORM)?
+    ((PCSrcIF == PCSrcIF_ADD4)?PC+32'd4:jump_address):PCBranch);
     
     
     
@@ -238,6 +242,7 @@ module processor(
     assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
     wire [4:0] EX_WriteReg = (IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0];
     
+    
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -248,12 +253,21 @@ module processor(
             EXMEM_WriteData <= 32'b0;
             EXMEM_WriteReg <= 1'b0;
         end else begin
-            EXMEM_MemtoReg <= IDEX_MemtoReg;
-            EXMEM_RegWrite <= IDEX_RegWrite;
-            EXMEM_MemWrite <= IDEX_MemWrite;
-            EXMEM_ALUOut <= ALU_ALUOut;
-            EXMEM_WriteData <= EX_real_b;
-            EXMEM_WriteReg <= EX_WriteReg;
+            if (interrupt) begin
+                EXMEM_MemtoReg <= MemtoReg_ALU;
+                EXMEM_RegWrite <= 1'b1;
+                EXMEM_MemWrite <= 1'b0;
+                EXMEM_ALUOut <= CHK_IDEX_PC;
+                EXMEM_WriteData <= 32'b0;
+                EXMEM_WriteReg <= EPC_REG;
+            end else begin
+                EXMEM_MemtoReg <= IDEX_MemtoReg;
+                EXMEM_RegWrite <= IDEX_RegWrite;
+                EXMEM_MemWrite <= IDEX_MemWrite;
+                EXMEM_ALUOut <= ALU_ALUOut;
+                EXMEM_WriteData <= EX_real_b;
+                EXMEM_WriteReg <= EX_WriteReg;
+            end
         end
     end
     
@@ -302,5 +316,35 @@ module processor(
     );
     
     assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
+    
+    
+    
+    
+    /*interrupt*/
+    reg [31:0] CHK_IFID_PC, CHK_IDEX_PC;
+    reg CHK_IFID_FLUSH, CHK_IDEX_FLUSH;
+    always @(posedge clk or negedge rst_n) 
+    begin
+        if (~rst_n) begin
+            CHK_IFID_PC <= BOOT_ADDR;
+            CHK_IFID_FLUSH <= 1'b1;
+        end else begin
+            CHK_IFID_PC <= PC;
+            CHK_IFID_FLUSH <= PCSrcID;
+        end
+    end
+    
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) begin
+            CHK_IDEX_PC <= BOOT_ADDR;
+            CHK_IDEX_FLUSH <= 1'b1;
+        end else begin
+            CHK_IDEX_PC <= CHK_IFID_PC;
+            CHK_IDEX_FLUSH <= CHK_IFID_FLUSH;
+        end
+    end
+    
+    assign interrupt = (!CHK_IDEX_FLUSH) && (irq); 
     
 endmodule

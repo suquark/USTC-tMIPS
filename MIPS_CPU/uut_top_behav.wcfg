@@ -11,11 +11,11 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="27300002fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomStartTime time="408760000fs"></ZoomStartTime>
+      <ZoomEndTime time="453060001fs"></ZoomEndTime>
+      <Cursor1Time time="435260000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="33" />
+   <WVObjectSize size="9" />
    <wvobject db_ref_id="1" fp_name="/uut_top/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
@@ -27,6 +27,18 @@
    <wvobject db_ref_id="1" fp_name="/uut_top/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/irq" type="logic">
+      <obj_property name="ElementShortName">irq</obj_property>
+      <obj_property name="ObjectShortName">irq</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/ack" type="logic">
+      <obj_property name="ElementShortName">ack</obj_property>
+      <obj_property name="ObjectShortName">ack</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/nPC" type="array">
+      <obj_property name="ElementShortName">nPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">nPC[31:0]</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/PC" type="array">
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
@@ -40,114 +52,5 @@
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IFID_PC" type="array">
       <obj_property name="ElementShortName">IFID_PC[31:0]</obj_property>
       <obj_property name="ObjectShortName">IFID_PC[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/PCBranch" type="array">
-      <obj_property name="ElementShortName">PCBranch[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PCBranch[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_IR" type="array">
-      <obj_property name="ElementShortName">IDEX_IR[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IDEX_IR[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/EXMEM_ALUOut" type="array">
-      <obj_property name="ElementShortName">EXMEM_ALUOut[31:0]</obj_property>
-      <obj_property name="ObjectShortName">EXMEM_ALUOut[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/MEMWB_ReadData" type="array">
-      <obj_property name="ElementShortName">MEMWB_ReadData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">MEMWB_ReadData[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/WriteRegMEM" type="array">
-      <obj_property name="ElementShortName">WriteRegMEM[4:0]</obj_property>
-      <obj_property name="ObjectShortName">WriteRegMEM[4:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/RtID" type="array">
-      <obj_property name="ElementShortName">RtID[4:0]</obj_property>
-      <obj_property name="ObjectShortName">RtID[4:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/_hazard_unit/RsID" type="array">
-      <obj_property name="ElementShortName">RsID[4:0]</obj_property>
-      <obj_property name="ObjectShortName">RsID[4:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/StallIF" type="logic">
-      <obj_property name="ElementShortName">StallIF</obj_property>
-      <obj_property name="ObjectShortName">StallIF</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/StallID" type="logic">
-      <obj_property name="ElementShortName">StallID</obj_property>
-      <obj_property name="ObjectShortName">StallID</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardAID" type="logic">
-      <obj_property name="ElementShortName">ForwardAID</obj_property>
-      <obj_property name="ObjectShortName">ForwardAID</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardBID" type="logic">
-      <obj_property name="ElementShortName">ForwardBID</obj_property>
-      <obj_property name="ObjectShortName">ForwardBID</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardAEX" type="array">
-      <obj_property name="ElementShortName">ForwardAEX[1:0]</obj_property>
-      <obj_property name="ObjectShortName">ForwardAEX[1:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ForwardBEX" type="array">
-      <obj_property name="ElementShortName">ForwardBEX[1:0]</obj_property>
-      <obj_property name="ObjectShortName">ForwardBEX[1:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/a" type="array">
-      <obj_property name="ElementShortName">a[9:0]</obj_property>
-      <obj_property name="ObjectShortName">a[9:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/d" type="array">
-      <obj_property name="ElementShortName">d[31:0]</obj_property>
-      <obj_property name="ObjectShortName">d[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/we" type="logic">
-      <obj_property name="ElementShortName">we</obj_property>
-      <obj_property name="ObjectShortName">we</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_addr" type="array">
-      <obj_property name="ElementShortName">r3_addr[4:0]</obj_property>
-      <obj_property name="ObjectShortName">r3_addr[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_din" type="array">
-      <obj_property name="ElementShortName">r3_din[31:0]</obj_property>
-      <obj_property name="ObjectShortName">r3_din[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/r3_wr" type="logic">
-      <obj_property name="ElementShortName">r3_wr</obj_property>
-      <obj_property name="ObjectShortName">r3_wr</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_A" type="array">
-      <obj_property name="ElementShortName">IDEX_A[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IDEX_A[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_B" type="array">
-      <obj_property name="ElementShortName">IDEX_B[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IDEX_B[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_in_a" type="array">
-      <obj_property name="ElementShortName">ALU_in_a[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALU_in_a[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_in_b" type="array">
-      <obj_property name="ElementShortName">ALU_in_b[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALU_in_b[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/ALU_ALUOut" type="array">
-      <obj_property name="ElementShortName">ALU_ALUOut[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALU_ALUOut[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/EX_real_b" type="array">
-      <obj_property name="ElementShortName">EX_real_b[31:0]</obj_property>
-      <obj_property name="ObjectShortName">EX_real_b[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IDEX_ALUSrc" type="logic">
-      <obj_property name="ElementShortName">IDEX_ALUSrc</obj_property>
-      <obj_property name="ObjectShortName">IDEX_ALUSrc</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/cu_IDEX_ALUSrc" type="logic">
-      <obj_property name="ElementShortName">cu_IDEX_ALUSrc</obj_property>
-      <obj_property name="ObjectShortName">cu_IDEX_ALUSrc</obj_property>
    </wvobject>
 </wave_config>
