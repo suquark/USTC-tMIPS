@@ -40,3 +40,12 @@ parameter ForwardBEX_MEM  = 2'b01;
 parameter ISR_ADDR = 32'h0008;
 parameter EPC_REG  = 5'd26;
 parameter INT_ENABLE_ADDR = 32'h2100;
+
+parameter MEM_MAP_RAM_AVAILABLE_HEAD = 20'h20000;
+parameter MEM_MAP_OUT_HEAD = 24'hffff00; // FFFF0000 ~ FFFF00FC for outputs, totally 64
+parameter MEM_MAP_INT_MAP_HEAD = 24'hffff01; // FFFF0100 ~ FFFF01FC for interrupts, totally 64
+parameter MEM_MAP_INT_ENABLE = 32'hffff0200; // FFFF0020 for interrupt enabled
+
+parameter INT_INDEX_SWITCH = 6'h00;
+
+parameter OUT_INDEX_LED = 6'h00;

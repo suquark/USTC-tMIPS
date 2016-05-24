@@ -345,6 +345,6 @@ module processor(
         end
     end
     
-    assign interrupt = (!CHK_IDEX_FLUSH) && (irq); 
+    assign interrupt = (!CHK_IDEX_FLUSH) && (irq);
     
 endmodule
