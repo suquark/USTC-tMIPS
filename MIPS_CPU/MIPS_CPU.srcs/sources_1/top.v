@@ -26,25 +26,32 @@ module top(
     input [15:1] sw,
     output reg [15:0] led
     );
-        
-    slow_clk _slow_clk(
-        .clk_orig(clk_orig),
-        .clk(clk)
-    );
+    
+    `include "param.v"
     
     wire [31:0] imem_a, imem_d;
     wire [31:0] dmem_a, dmem_rd, dmem_wd;
     wire dmem_we;
     
     wire clk;
+        
+    slow_clk _slow_clk(
+        .clk_orig(clk_orig),
+        .clk(clk)
+    );
     
     wire int_req;
     wire int_ack;
     wire int_map_write;
-    wire [3:0] int_map_index;
-    wire [31:0] int_map_data;
+    wire [4:0] int_map_index;
+    reg [31:0] int_map_rd;
+    wire [31:0] int_map_wd;
     wire int_enable_write;
-    wire int_enable;
+    wire int_enable_r;
+    wire int_enable_w;
+    wire int_mask_write;
+    reg [31:0] int_mask;
+    wire int_mask_wd;
     
     processor processor1
     (
@@ -74,6 +81,9 @@ module top(
         .int_enable_write (int_enable_write),
         .int_enable_r     (int_enable_r),
         .int_enable_w     (int_enable_w),
+        .int_mask_write   (int_mask_write),
+        .int_mask_rd      (int_mask),
+        .int_mask_wd      (int_mask_wd),
         .out_write        (out_write),
         .out_index        (out_index),
         .out_data         (out_data)
@@ -94,6 +104,13 @@ module top(
         .int_enable_r     (int_enable_r),
         .int_enable_w     (int_enable_w)
     );
+    
+    // Interrupt Mask Handling
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) int_mask <= 32'hffffffff;
+        else int_mask <= int_mask_write ? int_mask_wd : int_mask;
+    end
     
     // Switch interrupt
     reg [31:0] int_map_switch;
@@ -118,8 +135,8 @@ module top(
         endcase
     end
     
-    // Whether to interrupt? AND all interrupt sources' int_map[0]!
-    assign int_exist = int_map_switch[0];
+    // Whether to interrupt? OR all interrupt sources' int_map[0]!
+    assign int_exist = int_map_switch[0] & int_mask[INT_INDEX_SWITCH];
     
     // LED output
     always @(posedge clk or negedge rst_n)

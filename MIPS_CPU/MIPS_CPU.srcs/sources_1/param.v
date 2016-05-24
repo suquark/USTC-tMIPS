@@ -37,15 +37,16 @@ parameter ForwardBEX_NONE = 2'b00;
 parameter ForwardBEX_ALU  = 2'b10;
 parameter ForwardBEX_MEM  = 2'b01;
 
-parameter ISR_ADDR = 32'h0008;
+parameter ISR_ADDR = 32'h00000044;
 parameter EPC_REG  = 5'd26;
 parameter INT_ENABLE_ADDR = 32'h2100;
 
 parameter MEM_MAP_RAM_AVAILABLE_HEAD = 20'h20000;
-parameter MEM_MAP_OUT_HEAD = 24'hffff00; // FFFF0000 ~ FFFF00FC for outputs, totally 64
-parameter MEM_MAP_INT_MAP_HEAD = 24'hffff01; // FFFF0100 ~ FFFF01FC for interrupts, totally 64
-parameter MEM_MAP_INT_ENABLE = 32'hffff0200; // FFFF0020 for interrupt enabled
+parameter MEM_MAP_OUT_HEAD = {24'hffff00, 1'b0}; // FFFF0000 ~ FFFF007C for outputs, totally 32
+parameter MEM_MAP_INT_MAP_HEAD = {24'hffff00, 1'b1}; // FFFF0080 ~ FFFF00FC for interrupts, totally 32
+parameter MEM_MAP_INT_ENABLE = 32'hffff0100; // FFFF0100 for interrupt enabled
+parameter MEM_MAP_INT_MASK = 32'hffff0104; // FFFF0104 for interrupt mask
 
-parameter INT_INDEX_SWITCH = 6'h00;
+parameter INT_INDEX_SWITCH = 5'h00;
 
-parameter OUT_INDEX_LED = 6'h00;
+parameter OUT_INDEX_LED = 5'h00;
