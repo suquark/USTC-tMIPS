@@ -293,7 +293,7 @@ module processor(
     end
     
     hazard_unit _hazard_unit(
-        .Branch(PCSrcID),
+        .Branch(cu_PCSrcID || cu_IDEX_Branchn || cu_IDEX_Branchz || cu_IDEX_Branchp),
         .RsID(IFID_rs),
         .RtID(IFID_rt),
         .MemtoRegEX(IDEX_MemtoReg),
