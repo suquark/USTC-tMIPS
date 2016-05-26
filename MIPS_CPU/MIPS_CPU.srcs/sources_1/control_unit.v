@@ -109,7 +109,7 @@ module control_unit(
                 BranchZ = 0;
                 BranchP = 0;
                 AddrSrc = AddrSrc_REG;
-                Branch = PCSrcID_BR;
+                Branch = PCSrcID_NORM;
                 link = 1'b1;
             end
             OP_LW:       begin

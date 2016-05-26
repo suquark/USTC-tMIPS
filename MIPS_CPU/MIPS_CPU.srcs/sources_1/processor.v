@@ -95,7 +95,7 @@ module processor(
                     IFID_PC <= BOOT_ADDR;
                 end else begin
 					     IFID_IR[31:0] <= imem_d[31:0];
-					     IFID_PC[31:0] <= nPC[31:0];
+					     IFID_PC[31:0] <= PC[31:0] + 32'd4;
                 end
 				end
                 
