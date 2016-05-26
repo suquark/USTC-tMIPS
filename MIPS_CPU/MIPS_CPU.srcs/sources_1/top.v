@@ -51,7 +51,7 @@ module top(
     wire int_enable_w;
     wire int_mask_write;
     reg [31:0] int_mask;
-    wire int_mask_wd;
+    wire [31:0] int_mask_wd;
     
     processor processor1
     (
@@ -67,6 +67,8 @@ module top(
         .dmem_we    (dmem_we)
     );
     
+    wire [31:0] out_data;
+    wire [4:0] out_index;
     data_mem _data_mem(
         .clk              (clk),
         .rst_n            (rst_n),

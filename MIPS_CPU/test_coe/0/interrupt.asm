@@ -2,9 +2,10 @@
 fibs: .word   0 : 20        # "array" of 12 words to contain fib values
 size: .word  20             # size of "array" 
 temp: .word 3 3
+led:  .word 0xffff0000
       .text
-      addi $s1,$zero,1
-loop1: bgtz $s1,loop1
+#      addi $s1,$zero,1
+#loop1: bgtz $s1,loop1
       la   $t0, fibs        # load address of array
       la   $t5, size        # load address of size variable
       lw   $t5, 0($t5)      # load array size
@@ -24,4 +25,7 @@ loop: lw   $t3, 0($t0)      # Get value from array F[n]
       addi $t1, $t1, -1     # decrement loop counter
       bgtz $t1, loop        # repeat if not finished yet.
 out:  
-	jr $k0		
+	lw $t7,led
+	sw $t2,0($t7)
+	j out
+#	jr $k0		

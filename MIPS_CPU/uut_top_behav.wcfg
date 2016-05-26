@@ -11,14 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="4192050000fs"></ZoomStartTime>
-      <ZoomEndTime time="4279650001fs"></ZoomEndTime>
-      <Cursor1Time time="5000000000fs"></Cursor1Time>
+      <ZoomStartTime time="8499200000fs"></ZoomStartTime>
+      <ZoomEndTime time="8601200001fs"></ZoomEndTime>
+      <Cursor1Time time="8538000000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="8" />
    <wvobject db_ref_id="1" fp_name="/uut_top/rst_n" type="logic">
       <obj_property name="ElementShortName">rst_n</obj_property>
       <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/sw" type="array">
+      <obj_property name="ElementShortName">sw[15:1]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:1]</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -28,30 +32,9 @@
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/irq" type="logic">
-      <obj_property name="ElementShortName">irq</obj_property>
-      <obj_property name="ObjectShortName">irq</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/ack" type="logic">
-      <obj_property name="ElementShortName">ack</obj_property>
-      <obj_property name="ObjectShortName">ack</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/nPC" type="array">
-      <obj_property name="ElementShortName">nPC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">nPC[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/PC" type="array">
-      <obj_property name="ElementShortName">PC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IFID_IR" type="array">
-      <obj_property name="ElementShortName">IFID_IR[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IFID_IR[31:0]</obj_property>
-   </wvobject>
-   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/IFID_PC" type="array">
-      <obj_property name="ElementShortName">IFID_PC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">IFID_PC[31:0]</obj_property>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/register1/mem" type="array">
+      <obj_property name="ElementShortName">mem[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[31:0][31:0]</obj_property>
    </wvobject>
    <wvobject db_ref_id="1" fp_name="/uut_top/top1/_data_mem/ram1/U0/memory" type="array">
       <obj_property name="ElementShortName">memory[1023:0][31:0]</obj_property>
@@ -4172,5 +4155,13 @@
          <obj_property name="ObjectShortName">memory[0][31:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/led" type="array">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top/top1/processor1/PC" type="array">
+      <obj_property name="ElementShortName">PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
    </wvobject>
 </wave_config>
