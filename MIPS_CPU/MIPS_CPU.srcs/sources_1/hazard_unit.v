@@ -55,7 +55,7 @@ module hazard_unit(
             FlushEX = 1;
         end
         // Branch and Load Stall
-        else if (MemtoRegMEM && Branch && RegWriteEX && WriteRegMEM && (WriteRegMEM == RsID || WriteRegMEM == RtID)) begin
+        else if (MemtoRegMEM && Branch && RegWriteMEM && WriteRegMEM && (WriteRegMEM == RsID || WriteRegMEM == RtID)) begin
             StallIF = 1;
             StallID = 1;
             FlushEX = 1;
