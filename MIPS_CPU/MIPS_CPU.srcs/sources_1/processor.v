@@ -39,12 +39,12 @@ module processor(
     // segment registers
     reg [31:0] IFID_IR, IFID_PC;
     
-    reg IDEX_RegWrite, IDEX_MemtoReg, IDEX_MemWrite, IDEX_ALUSrc, IDEX_RegDst, IDEX_Jump;
+    reg IDEX_RegWrite, IDEX_MemtoReg, IDEX_MemWrite, IDEX_ALUSrc, IDEX_RegDst, IDEX_link;
     reg [4:0] IDEX_ALUControl;
-    reg [31:0] IDEX_IM, IDEX_A, IDEX_B, IDEX_IR;
+    reg [31:0] IDEX_IM, IDEX_A, IDEX_B, IDEX_IR, IDEX_PC;
     
-    reg EXMEM_RegWrite, EXMEM_MemtoReg, EXMEM_MemWrite;
-    reg [31:0] EXMEM_ALUOut, EXMEM_WriteData;
+    reg EXMEM_RegWrite, EXMEM_MemtoReg, EXMEM_MemWrite, EXMEM_link;
+    reg [31:0] EXMEM_ALUOut, EXMEM_WriteData, EXMEM_PC;
     reg [4:0] EXMEM_WriteReg;
     
     reg MEMWB_RegWrite, MEMWB_MemtoReg;
@@ -139,7 +139,7 @@ module processor(
         .r2_dout    (reg_r2_dout)
     );
     wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_ALUSrc, cu_IDEX_RegDst;
-    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp;
+    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp, cu_IDEX_link;
     wire [4:0] cu_IDEX_ALUControl;
     
     wire ADDR_Src;
@@ -157,7 +157,8 @@ module processor(
         .BranchZ    (cu_IDEX_Branchz),
         .BranchP    (cu_IDEX_Branchp),
         .AddrSrc    (ADDR_Src),
-        .Branch     (cu_PCSrcID)
+        .Branch     (cu_PCSrcID),
+        .link       (cu_IDEX_link)
     );
     
     wire [15:0] immediate;
@@ -165,8 +166,9 @@ module processor(
     assign immediate[15:0] = IFID_IR[15:0];
     assign ext_immediate[31:0] = {{16{immediate[15]}}, immediate[15:0]};
     wire [31:0] DE_real_a, DE_real_b;
-    assign DE_real_a = ForwardAID?EXMEM_ALUOut:reg_r1_dout;
-    assign DE_real_b = ForwardBID?EXMEM_ALUOut:reg_r2_dout;
+    wire [31:0] MEM_ALUOut;
+    assign DE_real_a = ForwardAID?MEM_ALUOut:reg_r1_dout;
+    assign DE_real_b = ForwardBID?MEM_ALUOut:reg_r2_dout;
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -180,6 +182,8 @@ module processor(
             IDEX_A <= 32'b0;
             IDEX_B <= 32'b0;
             IDEX_IR[31:0] <= 32'b0;
+            IDEX_PC[31:0] <= BOOT_ADDR;
+            IDEX_link <= 1'b0;
         end else begin
             if (FlushEX || interrupt) begin
                  IDEX_RegWrite <= 1'b0;
@@ -192,6 +196,8 @@ module processor(
                  IDEX_A <= 32'b0;
                  IDEX_B <= 32'b0;
                  IDEX_IR[31:0] <= 32'b0;
+                 IDEX_PC[31:0] <= BOOT_ADDR;
+                 IDEX_link <= 1'b0;
             end else begin
                 IDEX_RegWrite <= cu_IDEX_RegWrite;
                 IDEX_MemtoReg <= cu_IDEX_MemtoReg;
@@ -203,6 +209,8 @@ module processor(
                 IDEX_IR <= IFID_IR;
                 IDEX_A <= DE_real_a;
                 IDEX_B <= DE_real_b;
+                IDEX_PC[31:0] <= IFID_PC[31:0];
+                IDEX_link <= cu_IDEX_link;
             end
         end
     end
@@ -229,9 +237,9 @@ module processor(
         .alu_out (ALU_ALUOut)
     );
     
-    assign ALU_in_a = (ForwardAEX == ForwardAEX_NONE)?IDEX_A:((ForwardAEX == ForwardAEX_ALU)?EXMEM_ALUOut:MEMWB_Result);
+    assign ALU_in_a = (ForwardAEX == ForwardAEX_NONE)?IDEX_A:((ForwardAEX == ForwardAEX_ALU)?MEM_ALUOut:MEMWB_Result);
     wire [31:0] EX_real_b;
-    assign EX_real_b = (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?EXMEM_ALUOut:MEMWB_Result);
+    assign EX_real_b = (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?MEM_ALUOut:MEMWB_Result);
     assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:EX_real_b;
 
 
@@ -240,7 +248,8 @@ module processor(
     assign EX_rd[4:0] = IDEX_IR[15:11];
     
     assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
-    wire [4:0] EX_WriteReg = (IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0];
+    wire [4:0] EX_WriteReg = IDEX_link?
+    5'd31:((IDEX_RegDst == RegDst_rt)?EX_rt[4:0]:EX_rd[4:0]);
     
     
     always @(posedge clk or negedge rst_n)
@@ -252,6 +261,8 @@ module processor(
             EXMEM_ALUOut <= 32'b0;
             EXMEM_WriteData <= 32'b0;
             EXMEM_WriteReg <= 1'b0;
+            EXMEM_PC[31:0] <= BOOT_ADDR;
+            EXMEM_link <= 1'b0;
         end else begin
             if (interrupt) begin
                 EXMEM_MemtoReg <= MemtoReg_ALU;
@@ -260,6 +271,8 @@ module processor(
                 EXMEM_ALUOut <= CHK_IDEX_PC;
                 EXMEM_WriteData <= 32'b0;
                 EXMEM_WriteReg <= EPC_REG;
+                EXMEM_PC[31:0] <= BOOT_ADDR;
+                EXMEM_link <= 1'b0;
             end else begin
                 EXMEM_MemtoReg <= IDEX_MemtoReg;
                 EXMEM_RegWrite <= IDEX_RegWrite;
@@ -267,11 +280,14 @@ module processor(
                 EXMEM_ALUOut <= ALU_ALUOut;
                 EXMEM_WriteData <= EX_real_b;
                 EXMEM_WriteReg <= EX_WriteReg;
+                EXMEM_PC[31:0] <= IDEX_PC[31:0];
+                EXMEM_link <= IDEX_link;
             end
         end
     end
     
-    assign dmem_a = EXMEM_ALUOut;
+    assign MEM_ALUOut = EXMEM_link?EXMEM_PC[31:0]:EXMEM_ALUOut;
+    assign dmem_a = MEM_ALUOut;
     assign dmem_wd = EXMEM_WriteData;
     assign dmem_we = EXMEM_MemWrite;
     
@@ -285,7 +301,7 @@ module processor(
             MEMWB_WriteReg  <= 1'b0;
         end else begin
              MEMWB_RegWrite <= EXMEM_RegWrite;
-             MEMWB_ALUOut    <= EXMEM_ALUOut;
+             MEMWB_ALUOut    <= MEM_ALUOut;
              MEMWB_ReadData  <= dmem_rd;
              MEMWB_MemtoReg  <= EXMEM_MemtoReg;
              MEMWB_WriteReg  <= EXMEM_WriteReg;

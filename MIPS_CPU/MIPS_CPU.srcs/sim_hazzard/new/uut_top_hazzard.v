@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module uut_top_hazzard();
     reg rst_n;
     reg clk;
