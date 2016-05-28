@@ -39,6 +39,23 @@ end:
 .end_macro
 
 
+.macro findmax0 (%base, %offset)
+	addiu $v0,$zero,-1 # begin,findmax roution
+	addiu $t0,$zero,0
+	#dec %offset # for bgtz
+Loop:
+	bge $t0,%offset,end
+	addu $t9,%base,$t0 # calc the offset
+	lw $t9,($t9) # get offset
+	bge $v0,$t9,skip0
+	movr $v0,$t9
+skip0:
+	inc $t0 # eeeeeeh, not $v0
+	j Loop
+end:
+.end_macro
+
+
 .macro locate_eq_other_rr0 (%base, %offset, %src, %skip)
 # [%skip+1, %offset)
 	addu $v0,%skip,4 # begin

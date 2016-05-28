@@ -40,6 +40,25 @@ CreateProcess: # entry($a0) : PID
 	movr $v0,$t2 # return PID
 	ret
 
+.macro GetPID(%reg)
+	lw %reg,PID
+.end_macro
+
+AdjustPriority: # PID($a0) Level($a1)
+	enter
+	sw $a1,PST($a0)
+	lw $t9,PST_HIGHEST
+	bge $a1,$t9,update_priority
+	# if less 
+	movi $a0,PST
+	movi $a1,PST_LEN
+	findmax0($a0,$a1)
+	movr $a1,$v0
+update_priority:
+	sw $a1,PST_HIGHEST
+	ret
+	
+
 StartProcess: # PID($a0)
 	enter
 	movi $t9,PSTATE_READY
@@ -49,6 +68,8 @@ StartProcess: # PID($a0)
 KillProcess: # $a0 - PID
 	enter
 	sw $zero, PCB($a0) # PSTATE_DEAD
+	movi $a1,0
+	jal AdjustPriority
 	ret
 	
 ExitProcess:

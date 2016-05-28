@@ -46,16 +46,20 @@ end:
 .macro _LookupRR
 	movi $a0,PST
 	movi $a1,0x80
-	lw $a2,PST_HIGHEST
+	lw $a2,PST_HIGHEST # get the current priority
 	lw $a3,PID
 	locate_other_ready_rr0($a0,$a1,$a2,$a3) # v0
 .end_macro
 
-
-
-
-	
-
 resume_routine:
 	# _cls_int
 	_resume  # Will cause it to go back 
+	
+SoftSchedule:
+	_LookupRR
+	beq $v0,0x80,schd_skip
+	_u_save
+	movr $a0,$v0	
+    	force_switchto($a0)
+    schd_skip:
+	jr $ra

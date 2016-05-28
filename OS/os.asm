@@ -18,15 +18,6 @@ j main
 .end_macro
 
 
-SoftSchedule:
-	_LookupRR
-	beq $v0,0x80,schd_skip
-	_u_save
-	movr $a0,$v0	
-    	force_switchto($a0)
-    schd_skip:
-	jr $ra
-
 func:
 	lw $t0,PID
 	print_int $t0
@@ -42,8 +33,40 @@ func:
 
 main:
 	initial_system
-	for ($t4, 1, 31, test)
+	for ($t4, 1, 31, test) # [1,31]
 	calli KillProcess,16
+	
+	GetPID $a0
+	movi $a1,2
+	jal AdjustPriority
+	
+	movi $a0,12
+	movi $a1,2
+	jal AdjustPriority
+	
+	movi $a0,20
+	movi $a1,1
+	jal AdjustPriority
+	
+	lw $t0,PID
+	print_int $t0
+	print_str "\n"
+	jal SoftSchedule # hhhhhh
+	
+	lw $t0,PID
+	print_int $t0
+	print_str "\n"
+	
+	calli KillProcess,0
+	calli KillProcess,12
+	calli KillProcess,20
+	jal SoftSchedule
+	lw $t0,PID
+	print_int $t0
+	print_str "\n"
+		
+	
 	jal ExitProcess
+	jal SoftSchedule
 	j func
 	
