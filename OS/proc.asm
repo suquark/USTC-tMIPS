@@ -14,14 +14,16 @@
 .end_macro
 
 
-.macro initial_process(%pid,%entry)
-	mul $t0,%pid,STACK_SIZE_4
+.macro initial_process0(%pid,%entry)
+	# mul $t0,%pid,STACK_SIZE_4
+	_muli1 $t0,%pid,STACK_SIZE_4
 	addiu $t0,$t0,STACK
 	sw %entry,($t0) # Construct the entry
 	addiu $t0,$t0,-128  # ???
 	sw $t0,SSTACK(%pid) # Save the stack
 .end_macro
 
+###  destroy t0,t2,t3 
 CreateProcess: # entry($a0) : PID
 	# use $t0,$t2
 	enter
@@ -34,9 +36,9 @@ CreateProcess: # entry($a0) : PID
   create_process_done:
   	movi $t3,PSTATE_NEW
   	sw $t3,($t2)
-  	subiu $t2,$t2,PCB
+  	addiu $t2,$t2,-PCB
   	InheritPriority($t2) # use t0 t1
-  	initial_process($t2,$a0)
+  	initial_process0($t2,$a0)
 	movr $v0,$t2 # return PID
 	ret
 
@@ -69,12 +71,12 @@ KillProcess: # $a0 - PID
 	enter
 	sw $zero, PCB($a0) # PSTATE_DEAD
 	movi $a1,0
-	jal AdjustPriority
+	_jal AdjustPriority
 	ret
 	
 ExitProcess:
 	enter # may be unnecessary
 	lw $t0,PID
 	callr KillProcess,$t0
-	jal SoftSchedule # Never return
+	_jal SoftSchedule # Never return
 	ret

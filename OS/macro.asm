@@ -45,6 +45,8 @@ addiu %reg,%reg,4
 	not %regb,%regb  # restore it
 .end_macro
 
+
+
 # will destory t0
 .macro bgt0(%rega,%regb,%label)
 	addu $t0,%rega,%regb
@@ -64,18 +66,40 @@ addiu %reg,%reg,4
 	push %pt
 .end_macro
 
+.macro zero(%reg)
+	addiu %reg,$zero,0
+.end_macro
+
+.macro _jal(%addr)
+	la $ra,jump_back
+	j %addr
+jump_back:
+.end_macro
+
 .macro callr(%func,%arg0)
 	movr $a0,%arg0
-	jal %func
+	_jal %func
 .end_macro
 
 .macro calli(%func,%arg0)
 	movi $a0,%arg0
-	jal %func
+	_jal %func
 .end_macro
 
 .macro calla(%func,%addr)
 	la $a0,%addr
-	jal %func
+	_jal %func
+.end_macro
+
+# mul $t0,%pid,STACK_SIZE_4
+.macro _muli1(%dst,%a,%imm)
+	zero %dst
+	movr $t1,%a
+loop:
+	beq $t1,0,end
+	addiu %dst,%dst,%imm
+	addiu $t1,$t1,-1
+	j loop
+end:
 .end_macro
 

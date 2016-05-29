@@ -23,7 +23,7 @@ func:
 	print_int $t0
 	print_str "\n"
 	
-	jal SoftSchedule
+	_jal SoftSchedule
 	j func
 
 .macro test
@@ -33,25 +33,30 @@ func:
 
 main:
 	initial_system
+	#test
+	#sw $v0,LED
+	#deadloop()
+
+test2:
 	for ($t4, 1, 31, test) # [1,31]
 	calli KillProcess,16
 	
 	GetPID $a0
 	movi $a1,2
-	jal AdjustPriority
+	_jal AdjustPriority
 	
 	movi $a0,12
 	movi $a1,2
-	jal AdjustPriority
+	_jal AdjustPriority
 	
 	movi $a0,20
 	movi $a1,1
-	jal AdjustPriority
+	_jal AdjustPriority
 	
 	lw $t0,PID
 	print_int $t0
 	print_str "\n"
-	jal SoftSchedule # hhhhhh
+	_jal SoftSchedule # hhhhhh
 	
 	lw $t0,PID
 	print_int $t0
@@ -60,13 +65,11 @@ main:
 	calli KillProcess,0
 	calli KillProcess,12
 	calli KillProcess,20
-	jal SoftSchedule
+	_jal SoftSchedule
 	lw $t0,PID
 	print_int $t0
 	print_str "\n"
-		
 	
-	jal ExitProcess
-	jal SoftSchedule
+	_jal ExitProcess
+	_jal SoftSchedule
 	j func
-	

@@ -28,3 +28,5 @@
 .eqv STACK 0x300
 .eqv STACK_SIZE 0x80
 .eqv STACK_SIZE_4 0x20
+
+.eqv LED 0x204C

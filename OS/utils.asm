@@ -10,7 +10,7 @@ Loop:
 
 # untest
 .macro locate_eq0 (%base, %offset, %src)
-	addu $v0,$zero,0
+	addiu $v0,$zero,0
 	dec %offset # for bgtz
 Loop:
 	bge $v0,%offset,end
@@ -24,7 +24,7 @@ end:
 
 
 .macro locate_eq_other0 (%base, %offset, %src, %skip)
-	addu $v0,$zero,0 # begin
+	addiu $v0,$zero,0 # begin
 	#dec %offset # for bgtz
 Loop:
 	bge $v0,%offset,end # check range
@@ -58,7 +58,7 @@ end:
 
 .macro locate_eq_other_rr0 (%base, %offset, %src, %skip)
 # [%skip+1, %offset)
-	addu $v0,%skip,4 # begin
+	addiu $v0,%skip,4 # begin
 Loop:
 	bge $v0,%offset,step2 # check range
 	addu $t0,%base,$v0 # calc the offset
@@ -79,6 +79,10 @@ Loop2:
 end:
 .end_macro
 
+.macro deadloop()
+loop: 
+j loop
+.end_macro
 
 .macro max(%reg,%rega,%regb)
 

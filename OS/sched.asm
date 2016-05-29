@@ -16,7 +16,7 @@
 
 .macro locate_other_ready_rr0 (%base, %offset, %src, %skip)
 # [%skip+1, %offset)
-	addu $v0,%skip,4 # begin
+	addiu $v0,%skip,4 # begin ....
 Loop:
 	bge $v0,%offset,step2 # check range
 	lw $t0,PCB($v0)
@@ -29,7 +29,7 @@ skip1:
 	j Loop
 step2:
 # [0, %skip)
-	addu $v0,$zero,0 # begin
+	addiu $v0,$zero,0 # begin
 Loop2:
 	bge $v0,%skip,end # check range
 	lw $t0,PCB($v0)
