@@ -26,23 +26,60 @@ module data_mem(
     input [31:0] address,
     input [31:0] data_in,
     input write_enabled,
-    output [31:0] data_out,
-    output reg [15:0] led
+    output reg [31:0] data_out,
+    
+    output int_map_write,
+    output [4:0] int_map_index,
+    input  [31:0] int_map_rd,
+    output [31:0] int_map_wd,
+    output int_enable_write,
+    input  int_enable_r,
+    output int_enable_w,
+    output int_mask_write,
+    input  [31:0] int_mask_rd,
+    output [31:0] int_mask_wd,
+    
+    output out_write,
+    output [4:0] out_index,
+    output [31:0] out_data
     );
     
-    wire [15:0] led_next = (address == 32'h0000204C & write_enabled) ? data_in[15:0] : led; 
+    `include "param.v"
     
-    always @(posedge clk or negedge rst_n) begin
-        if (~rst_n) led <= 16'h0000;
-        else led <= led_next;
+    wire [31:0] mem_data_out;
+    
+    always @(*)
+    begin
+        if (address[31:7] == MEM_MAP_INT_MAP_HEAD)
+            data_out = int_map_rd;
+        else if (address == MEM_MAP_INT_ENABLE)
+            data_out = {31'h0, int_enable_r};
+        else if (address == MEM_MAP_INT_MASK)
+            data_out = int_mask_rd;
+        else if (address[31:12] == MEM_MAP_RAM_AVAILABLE_HEAD)
+            data_out = mem_data_out;
+        else // For output mappings
+            data_out = 32'h0;
     end
+    
+    assign int_map_write    = (address[31:7] == MEM_MAP_INT_MAP_HEAD) && write_enabled;
+    assign int_map_index    = address[6:2];
+    assign int_map_wd       = data_in[31:0];
+    assign int_enable_write = (address == MEM_MAP_INT_ENABLE) && write_enabled;
+    assign int_enable_w     = (data_in != 32'h0);
+    assign int_mask_write   = (address == MEM_MAP_INT_MASK) && write_enabled;
+    assign int_mask_wd      = data_in[31:0];
+    
+    assign out_write        = (address[31:7] == MEM_MAP_OUT_HEAD) && write_enabled;
+    assign out_index        = address[6:2];
+    assign out_data         = data_in;
     
     ram ram1(
         .a(address[11:2]),
         .d(data_in),
         .clk(clk),
-        .we(write_enabled),
-        .spo(data_out)
+        .we((address[31:12] == MEM_MAP_RAM_AVAILABLE_HEAD) & write_enabled),
+        .spo(mem_data_out)
     );
     
 endmodule

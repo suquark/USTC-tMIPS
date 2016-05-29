@@ -23,17 +23,24 @@
 module uut_top();
     reg rst_n;
     reg clk;
+    reg [15:1] sw;
     wire [15:0] led;
     top top1(
         .rst_n       (rst_n),
         .clk_orig    (clk),
-        .led         (led)
+        .led         (led),
+        .sw          (sw)
     );
     initial begin
         rst_n = 0;
         clk = 0;
+        sw = 15'h0;
         #100;
         rst_n = 1;
+        #350;
+        sw = 15'h1;
+        #20;
+        sw = 15'h0;
     end
     always begin
         #5;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="uut_top_hazzard_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="uut_top_hazzard" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="316230000fs"></ZoomStartTime>
+      <ZoomEndTime time="420430001fs"></ZoomEndTime>
+      <Cursor1Time time="960167000fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="11" />
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/led" type="array">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/IFID_IR" type="array">
+      <obj_property name="ElementShortName">IFID_IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IFID_IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/IDEX_IR" type="array">
+      <obj_property name="ElementShortName">IDEX_IR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_IR[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/PC" type="array">
+      <obj_property name="ElementShortName">PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/IFID_PC" type="array">
+      <obj_property name="ElementShortName">IFID_PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IFID_PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/IDEX_PC" type="array">
+      <obj_property name="ElementShortName">IDEX_PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IDEX_PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/PC" type="array">
+      <obj_property name="ElementShortName">PC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="/uut_top_hazzard/top1/processor1/nPC" type="array">
+      <obj_property name="ElementShortName">nPC[31:0]</obj_property>
+      <obj_property name="ObjectShortName">nPC[31:0]</obj_property>
+   </wvobject>
+</wave_config>
