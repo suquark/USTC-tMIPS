@@ -29,12 +29,7 @@ module control_unit(
     output reg [4:0] ALUControl,
     output reg ALUSrc,
     output reg RegDst,
-    output reg BranchN,
-    output reg BranchZ,
-    output reg BranchP,
-    output reg AddrSrc,
-    output reg Branch,
-    output reg link
+    output reg Branch
     );
     
     `include "param.v"
@@ -45,6 +40,7 @@ module control_unit(
     parameter OP_ADDI     = 6'b001000;
     parameter OP_BGTZ     = 6'b000111;
     parameter OP_JAL      = 6'b000011;
+    parameter OP_J        = 6'b000010;
     
     parameter FUNCT_ADD   = 6'b100000;
     parameter FUNCT_JR    = 6'b001000;
@@ -61,12 +57,7 @@ module control_unit(
                         ALUControl = A_ADD;
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 1'b0;
+                        Branch = 1'b0;
                     end
                     FUNCT_JR:   begin
                         RegWrite = 0;
@@ -75,12 +66,7 @@ module control_unit(
                         ALUControl = A_NOP;
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rt;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_REG;
-                        Branch = PCSrcID_BR;
-                        link = 1'b0;
+                        Branch = 1'b1;
                     end
                     default:    begin
                         RegWrite = 0;
@@ -89,12 +75,7 @@ module control_unit(
                         ALUControl = A_NOP;
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rt;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 1'b0;
+                        Branch = 1'b0;
                     end
                 endcase
             end
@@ -105,12 +86,16 @@ module control_unit(
                 ALUControl = A_NOP;
                 ALUSrc = ALUSrc_REG;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 0;
-                AddrSrc = AddrSrc_REG;
-                Branch = PCSrcID_NORM;
-                link = 1'b1;
+                Branch = 1'b1;
+            end
+            OP_J:       begin
+                 RegWrite = 0;
+                 MemtoReg = MemtoReg_ALU;
+                 MemWrite = 0;
+                 ALUControl = A_NOP;
+                 ALUSrc = ALUSrc_REG;
+                 RegDst = RegDst_rt;
+                 Branch = 1'b1;
             end
             OP_LW:       begin
                 RegWrite = 1;
@@ -119,12 +104,7 @@ module control_unit(
                 ALUControl = A_ADD;
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 0;
-                AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_NORM;
-                link = 1'b0;
+                Branch = 1'b0;
             end
             OP_SW:       begin
                 RegWrite = 0;
@@ -133,12 +113,7 @@ module control_unit(
                 ALUControl = A_ADD;
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 0;
-                AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_NORM;
-                link = 1'b0;
+                Branch = 1'b0;
             end
             OP_ADDI:     begin
                 RegWrite = 1;
@@ -147,12 +122,7 @@ module control_unit(
                 ALUControl = A_ADD;
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 0;
-                AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_NORM;
-                link = 1'b0;
+                Branch = 1'b0;
             end
             OP_BGTZ:     begin
                 RegWrite = 0;
@@ -161,12 +131,7 @@ module control_unit(
                 ALUControl = A_ADD;
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 1;
-                AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_NORM;
-                link = 1'b0;
+                Branch = 1'b1;
             end
             default:     begin
                 RegWrite = 0;
@@ -175,12 +140,7 @@ module control_unit(
                 ALUControl = A_NOP;
                 ALUSrc = ALUSrc_REG;
                 RegDst = RegDst_rt;
-                BranchN = 0;
-                BranchZ = 0;
-                BranchP = 0;
-                AddrSrc = AddrSrc_IM;
-                Branch = PCSrcID_NORM;
-                link = 1'b0;
+                Branch = 1'b0;
             end
         endcase
     end

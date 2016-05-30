@@ -26,8 +26,10 @@ parameter  BOOT_ADDR    = 32'b0;
 
 parameter J_TYPE_OP     = 5'b00001;
 
-parameter AddrSrc_IM   = 1'b0;
-parameter AddrSrc_REG  = 1'b1;
+parameter AddrSrc_PCPlus4 = 2'b00;
+parameter AddrSrc_J       = 2'b01;
+parameter AddrSrc_I       = 2'b10;
+parameter AddrSrc_REG     = 2'b11;
 
 parameter ForwardAEX_NONE = 2'b00;
 parameter ForwardAEX_ALU  = 2'b10;
