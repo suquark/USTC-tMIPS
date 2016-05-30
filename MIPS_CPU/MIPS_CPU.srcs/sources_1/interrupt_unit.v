@@ -31,4 +31,28 @@ module interrupt_unit(
     input int_enable_w
     );
     
+    reg int_enable;
+    
+    assign int_enable_r = int_enable;
+    
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) begin
+            int_enable <= 1;
+        end
+        else begin
+            if (int_enable) begin
+                if (int_enable_write & ~int_enable_w) int_enable <= 0;
+                else if (int_ack) int_enable <= 0;
+                else int_enable <= 1;
+            end
+            else begin
+                if (int_enable_write & int_enable_w) int_enable <= 1;
+                else int_enable <= 0;
+            end
+        end
+    end
+    
+    assign int_req = int_enable & int_exist;
+    
 endmodule
