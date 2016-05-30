@@ -2,5 +2,6 @@
 *.bin
 *.bac
 *.img
+*.jar
 core
 boot

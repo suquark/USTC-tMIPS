@@ -33,7 +33,7 @@ module processor(
     output dmem_we
     );
     
-    wire [31:0] nPC;
+    reg [31:0] nPC;
     reg [31:0] PC;
     wire PCSrcID;
     // segment registers
@@ -80,6 +80,8 @@ module processor(
     end
     //wire IFID_rst_n;
     //assign IFID_rst_n = rst_n && ~PCSrcID;
+    wire [31:0] PCPlus4;
+    assign PCPlus4[31:0] = PC[31:0] + 32'd4;
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -95,24 +97,24 @@ module processor(
                     IFID_PC <= BOOT_ADDR;
                 end else begin
 					     IFID_IR[31:0] <= imem_d[31:0];
-					     IFID_PC[31:0] <= PC[31:0] + 32'd4;
+					     IFID_PC[31:0] <= PCPlus4;
                 end
 				end
                 
         end
     end
     
-    wire [25:0] address;
-    wire [5:0] IF_op;
-    wire [31:0] jump_address;
-    wire PCSrcIF;
-    assign address = imem_d[25:0];
-    assign IF_op = imem_d[31:26];
-    assign jump_address =  {PC[31:28], address, 2'b0};
-    assign PCSrcIF = (IF_op[5:1] == J_TYPE_OP)?PCSrcIF_J:PCSrcIF_ADD4;
-    assign nPC = interrupt?ISR_ADDR:((PCSrcID == PCSrcID_NORM)?
-    ((PCSrcIF == PCSrcIF_ADD4)?PC+32'd4:jump_address):PCBranch);
+    //wire [25:0] address;
+    //wire [5:0] IF_op;
+    //wire [31:0] jump_address;
+    //wire [31:0] ext_immediate;
+    //wire PCSrcIF;
+    //assign IF_op = imem_d[31:26];
+    //assign PCSrcIF = (IF_op[5:1] == J_TYPE_OP)?PCSrcIF_J:PCSrcIF_ADD4;
+    //assign nPC = interrupt?ISR_ADDR:((PCSrcID == PCSrcID_NORM)?
+    //((PCSrcIF == PCSrcIF_ADD4)?PC+32'd4:jump_address):PCBranch);
     
+    //nPC logic
     
     
     
@@ -139,11 +141,9 @@ module processor(
         .r2_dout    (reg_r2_dout)
     );
     wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_ALUSrc, cu_IDEX_RegDst;
-    wire cu_IDEX_Branchn, cu_IDEX_Branchz, cu_IDEX_Branchp, cu_IDEX_link;
+    wire cu_br;
     wire [4:0] cu_IDEX_ALUControl;
     
-    wire ADDR_Src;
-    wire cu_PCSrcID;
     control_unit cu1(
         .op         (IFID_op[5:0]),
         .funct      (IFID_funct[5:0]),
@@ -153,22 +153,53 @@ module processor(
         .ALUControl (cu_IDEX_ALUControl[4:0]),
         .ALUSrc     (cu_IDEX_ALUSrc),
         .RegDst     (cu_IDEX_RegDst),
-        .BranchN    (cu_IDEX_Branchn),
-        .BranchZ    (cu_IDEX_Branchz),
-        .BranchP    (cu_IDEX_Branchp),
-        .AddrSrc    (ADDR_Src),
-        .Branch     (cu_PCSrcID),
-        .link       (cu_IDEX_link)
+        .Branch     (cu_br)
     );
     
-    wire [15:0] immediate;
+    wire [15:0] immediate;    
+    wire [25:0] address;
+    wire [31:0] jump_address;
     wire [31:0] ext_immediate;
+    wire [1:0] AddrSrc;
     assign immediate[15:0] = IFID_IR[15:0];
     assign ext_immediate[31:0] = {{16{immediate[15]}}, immediate[15:0]};
+    assign address = IFID_IR[25:0];
+    assign jump_address =  {CHK_IFID_PC[31:28], address, 2'b0};
     wire [31:0] DE_real_a, DE_real_b;
     wire [31:0] MEM_ALUOut;
     assign DE_real_a = ForwardAID?MEM_ALUOut:reg_r1_dout;
     assign DE_real_b = ForwardBID?MEM_ALUOut:reg_r2_dout;
+
+    always @(*)
+    begin
+            if (interrupt) begin
+                nPC <= ISR_ADDR;
+            end else begin
+                case (AddrSrc)
+                    AddrSrc_PCPlus4: nPC <= PCPlus4;
+                    AddrSrc_J: nPC <= jump_address;
+                    AddrSrc_I: nPC <= {ext_immediate[29:0], 2'b0} + IFID_PC;
+                    AddrSrc_REG: nPC <= DE_real_a;
+                endcase
+            end
+    end
+    
+    
+    //Branch logic
+    wire ID_link, ID_WaitResult;
+    branch_de branch_de1(
+        .op     (IFID_op[2:0]),
+        .rt     (IFID_rt[4:0]),
+        .a      (DE_real_a[31:0]),
+        .b      (DE_real_b[31:0]),
+        .funct  (IFID_funct[5:0]),
+        .br     (cu_br),
+        .AddrSrc    (AddrSrc),
+        .WaitResult (ID_WaitResult),
+        .Branch     (PCSrcID),
+        .link       (ID_link)
+    );
+        
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) begin
@@ -199,7 +230,7 @@ module processor(
                  IDEX_PC[31:0] <= BOOT_ADDR;
                  IDEX_link <= 1'b0;
             end else begin
-                IDEX_RegWrite <= cu_IDEX_RegWrite;
+                IDEX_RegWrite <= cu_IDEX_RegWrite || ID_link;
                 IDEX_MemtoReg <= cu_IDEX_MemtoReg;
                 IDEX_MemWrite <= cu_IDEX_MemWrite;
                 IDEX_ALUControl <= cu_IDEX_ALUControl;
@@ -210,23 +241,10 @@ module processor(
                 IDEX_A <= DE_real_a;
                 IDEX_B <= DE_real_b;
                 IDEX_PC[31:0] <= IFID_PC[31:0];
-                IDEX_link <= cu_IDEX_link;
+                IDEX_link <= ID_link;
             end
         end
     end
-    
-    wire br_n, br_z, br_p;
-    assign PCBranch = (ADDR_Src == AddrSrc_IM)?({ext_immediate[29:0], 2'b0} + IFID_PC):DE_real_a;
-    branch_de branch_de1(
-        .a (DE_real_a),
-        .b  (DE_real_b),
-        .n  (br_n),
-        .z  (br_z),
-        .p  (br_p)
-    );
-     
-    assign PCSrcID = cu_PCSrcID || (cu_IDEX_Branchn && br_n) || (cu_IDEX_Branchz && br_z) || (cu_IDEX_Branchp && br_p);
-
 
     wire [31:0] ALU_in_a, ALU_in_b, ALU_ALUOut;
     alu alu1
@@ -310,7 +328,7 @@ module processor(
     end
     
     hazard_unit _hazard_unit(
-        .Branch(cu_PCSrcID || cu_IDEX_Branchn || cu_IDEX_Branchz || cu_IDEX_Branchp),
+        .Branch(ID_WaitResult),
         .RsID(IFID_rs),
         .RtID(IFID_rt),
         .MemtoRegEX(IDEX_MemtoReg),
