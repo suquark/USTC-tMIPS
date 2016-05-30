@@ -236,16 +236,17 @@ module processor(
         .alu_op (IDEX_ALUControl[4:0]),
         .alu_out (ALU_ALUOut)
     );
+        
+    wire [4:0] EX_rd, EX_rt;
+    assign EX_rt[4:0] = IDEX_IR[20:16];
+    assign EX_rd[4:0] = IDEX_IR[15:11];
+    assign EX_shamt[4:0] = IDEX_IR[10:6];
     
     assign ALU_in_a = (ForwardAEX == ForwardAEX_NONE)?IDEX_A:((ForwardAEX == ForwardAEX_ALU)?MEM_ALUOut:MEMWB_Result);
     wire [31:0] EX_real_b;
     assign EX_real_b = (ForwardBEX == ForwardBEX_NONE)?IDEX_B:((ForwardBEX == ForwardBEX_ALU)?MEM_ALUOut:MEMWB_Result);
-    assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:EX_real_b;
+    assign ALU_in_b = (IDEX_ALUSrc == ALUSrc_IM)?IDEX_IM:((IDEX_ALUSrc == ALUSrc_SHAMT)?EX_shamt:EX_real_b);
 
-
-    wire [4:0] EX_rd, EX_rt;
-    assign EX_rt[4:0] = IDEX_IR[20:16];
-    assign EX_rd[4:0] = IDEX_IR[15:11];
     
     assign MEMWB_Result = (MEMWB_MemtoReg == MemtoReg_ALU)?MEMWB_ALUOut:MEMWB_ReadData;
     wire [4:0] EX_WriteReg = IDEX_link?
