@@ -41,6 +41,8 @@ module control_unit(
     parameter OP_BGTZ     = 6'b000111;
     parameter OP_JAL      = 6'b000011;
     parameter OP_J        = 6'b000010;
+    parameter OP_BEQ      = 6'b000100;
+    parameter OP_BNE      = 6'b000101;
     
     parameter FUNCT_SLL   = 6'b000000;
     parameter FUNCT_SRL   = 6'b000010;
@@ -148,7 +150,7 @@ module control_unit(
                 RegDst = RegDst_rt;
                 Branch = 1'b1;
             end
-            OP_J:       begin
+            OP_J, OP_BNE, OP_BEQ, OP_BGTZ:       begin
                  RegWrite = 0;
                  MemtoReg = MemtoReg_ALU;
                  MemWrite = 0;
@@ -183,15 +185,6 @@ module control_unit(
                 ALUSrc = ALUSrc_IM;
                 RegDst = RegDst_rt;
                 Branch = 1'b0;
-            end
-            OP_BGTZ:     begin
-                RegWrite = 0;
-                MemtoReg = MemtoReg_ALU;
-                MemWrite = 0;
-                ALUControl = A_ADD;
-                ALUSrc = ALUSrc_IM;
-                RegDst = RegDst_rt;
-                Branch = 1'b1;
             end
             default:     begin
                 RegWrite = 0;

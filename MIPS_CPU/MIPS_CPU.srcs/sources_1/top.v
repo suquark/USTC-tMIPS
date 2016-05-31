@@ -96,7 +96,7 @@ module top(
     );
     
     rom rom1(
-        .a                (imem_a[7:2]),
+        .a                (imem_a[11:2]),
         .spo              (imem_d)
     );
     

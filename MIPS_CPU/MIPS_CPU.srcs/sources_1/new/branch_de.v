@@ -47,38 +47,47 @@ module branch_de(
     
     always @(*) begin
         if (br) begin
-            if (op == SPECIAL_OP) begin 
-                AddrSrc <= AddrSrc_REG;
-                Branch <= 1'b1;
-            end else begin
-                if ((op == JAL_OP) || (op == J_OP)) begin 
+            case (op[2:0]) 
+                SPECIAL_OP: begin
+                    AddrSrc <= AddrSrc_REG;
+                    Branch <= 1'b1;
+                end
+                JAL_OP, J_OP: begin
                     AddrSrc <= AddrSrc_J;
                     Branch <= 1'b1;
-                end else begin
-                    if (op == BGTZ_OP) begin
-                        if (a > 0) begin
-                            AddrSrc <= AddrSrc_I;
-                            Branch <= 1'b1;
-                        end else begin
-                            AddrSrc <= AddrSrc_PCPlus4;
-                            Branch <= 1'b0;
-                        end
+                end
+                BGTZ_OP: begin
+                    if (a > 0) begin
+                        AddrSrc <= AddrSrc_I;
+                        Branch <= 1'b1;
                     end else begin
-                        if (op ==  BEQ_OP) begin
-                            if (a == b) begin
-                                AddrSrc <= AddrSrc_I;
-                                Branch <= 1'b1;
-                            end else begin
-                                AddrSrc <= AddrSrc_PCPlus4;
-                                Branch <= 1'b0;
-                            end
-                        end else begin   // I want to go die. If any of you have interests, please help me to complete it
-                            AddrSrc <= AddrSrc_PCPlus4;
-                            Branch <= 1'b0;
-                        end
+                        AddrSrc <= AddrSrc_PCPlus4;
+                        Branch <= 1'b0;
                     end
                 end
-            end
+                BEQ_OP: begin
+                    if (a == b) begin
+                        AddrSrc <= AddrSrc_I;
+                        Branch <= 1'b1;
+                    end else begin
+                        AddrSrc <= AddrSrc_PCPlus4;
+                        Branch <= 1'b0;
+                    end
+                end
+                BNE_OP: begin
+                    if (a != b) begin
+                        AddrSrc <= AddrSrc_I;
+                        Branch <= 1'b1;
+                    end else begin
+                        AddrSrc <= AddrSrc_PCPlus4;
+                        Branch <= 1'b0;
+                    end
+                end
+                default: begin
+                    AddrSrc <= AddrSrc_PCPlus4;
+                    Branch <= 1'b0;
+                end
+            endcase
         end else begin
             AddrSrc <= AddrSrc_PCPlus4;
             Branch <= 1'b0;
