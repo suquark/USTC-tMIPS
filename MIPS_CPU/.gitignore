@@ -6,3 +6,4 @@ MIPS_CPU.runs/
 MIPS_CPU.sim/
 vivado.jou
 vivado.log
+*.jar
