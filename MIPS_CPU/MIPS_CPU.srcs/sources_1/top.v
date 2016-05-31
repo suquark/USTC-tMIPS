@@ -44,14 +44,19 @@ module top(
     wire int_ack;
     wire int_map_write;
     wire [4:0] int_map_index;
-    reg [31:0] int_map_rd;
-    wire [31:0] int_map_wd;
+    wire int_map_r;
+    wire int_map_w;
     wire int_enable_write;
     wire int_enable_r;
     wire int_enable_w;
     wire int_mask_write;
     reg [31:0] int_mask;
     wire [31:0] int_mask_wd;
+    
+    wire io_write;
+    wire io_index;
+    reg  [31:0] io_rd;
+    wire [31:0] io_wd;
     
     processor processor1
     (
@@ -67,8 +72,6 @@ module top(
         .dmem_we    (dmem_we)
     );
     
-    wire [31:0] out_data;
-    wire [4:0] out_index;
     data_mem _data_mem(
         .clk              (clk),
         .rst_n            (rst_n),
@@ -78,17 +81,18 @@ module top(
         .data_out         (dmem_rd),
         .int_map_write    (int_map_write),
         .int_map_index    (int_map_index),
-        .int_map_rd       (int_map_rd),
-        .int_map_wd       (int_map_wd),
+        .int_map_r        (int_map_r),
+        .int_map_w        (int_map_w),
         .int_enable_write (int_enable_write),
         .int_enable_r     (int_enable_r),
         .int_enable_w     (int_enable_w),
         .int_mask_write   (int_mask_write),
         .int_mask_rd      (int_mask),
         .int_mask_wd      (int_mask_wd),
-        .out_write        (out_write),
-        .out_index        (out_index),
-        .out_data         (out_data)
+        .io_write         (io_write),
+        .io_index         (io_index),
+        .io_rd            (io_rd),
+        .io_wd            (io_wd)
     );
     
     rom rom1(
@@ -115,35 +119,63 @@ module top(
     end
     
     // Switch interrupt
-    reg [31:0] int_map_switch;
-    wire sw_comp = ~(int_map_switch[31:17] == sw[15:1]);
+    reg [15:1] switch_status;
+    wire sw_comp = ~(switch_status[15:1] == sw[15:1]);
     always @(posedge clk or negedge rst_n)
     begin
-        if (~rst_n) int_map_switch <= 32'h0;
+        if (~rst_n) switch_status <= 15'h0000;
+        else        switch_status <= sw;
+    end
+    
+    // Time tick interrupt
+    reg [31:0] time_counter;
+    wire tick_gen = (time_counter == 32'h0);
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n)
+            time_counter <= TICK_CYCLE - 1;
         else begin
-            int_map_switch[31:17] <= sw[15:1];
-            int_map_switch[0] <=
-                (int_map_write & (int_map_index == INT_INDEX_SWITCH)) ? 
-                int_map_wd[0] : (int_map_switch[0] | sw_comp);
+            if (time_counter)
+                time_counter <= time_counter - 1;
+            else
+                time_counter <= TICK_CYCLE - 1;
         end
     end
     
-    // Interrupt Map reading
-    always @(*)
+    // Memory-Mapped Interrupt
+    reg [31:0] int_vector;
+    assign int_map_r = int_vector[int_map_index];
+    always @(posedge clk or negedge rst_n)
     begin
-        case (int_map_index)
-            INT_INDEX_SWITCH: int_map_rd <= int_map_switch;
-            default: int_map_rd <= 32'h0;
-        endcase
+        if (~rst_n) int_vector <= 32'h0;
+        else begin
+            int_vector[INT_INDEX_SWITCH] <=
+                (int_map_write & ~int_map_w & (int_map_index == INT_INDEX_SWITCH)) ? 
+                int_map_w : (int_vector[INT_INDEX_SWITCH] | sw_comp);
+            int_vector[INT_INDEX_TICK] <=
+                (int_map_write & ~int_map_w & (int_map_index == INT_INDEX_TICK)) ? 
+                int_map_w : (int_vector[INT_INDEX_TICK] | tick_gen);
+            int_vector[INT_INDEX_SOFT] <=
+                (int_map_write & (int_map_index == INT_INDEX_SOFT)) ?
+                int_map_w : int_vector[INT_INDEX_SOFT];
+        end
     end
     
-    // Whether to interrupt? OR all interrupt sources' int_map[0]!
-    assign int_exist = int_map_switch[0] & int_mask[INT_INDEX_SWITCH];
+    assign int_exist = ((int_vector & int_mask) != 32'h0);
     
     // LED output
     always @(posedge clk or negedge rst_n)
     begin
         if (~rst_n) led <= 16'h0000;
-        else        led <= (out_write && out_index == OUT_INDEX_LED) ? out_data : led;
+        else        led <= (io_write && io_index == IO_INDEX_LED) ? io_wd : led;
+    end
+    
+    // Memory-Mapped Input
+    always @(*)
+    begin
+        case (io_index)
+            IO_INDEX_SWITCH: io_rd <= {17'h0, switch_status};
+            default:         io_rd <= 32'h0;
+        endcase
     end
 endmodule
