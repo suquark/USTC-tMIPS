@@ -34,6 +34,9 @@ module alu(
 			A_OR:  alu_out <= alu_a | alu_b;
 			A_XOR: alu_out <= alu_a ^ alu_b;
 			A_NOR: alu_out <= ~(alu_a | alu_b);
+			A_SLL: alu_out <= alu_a << alu_b[4:0];
+            A_SRA: alu_out <= alu_a >>> alu_b[4:0];
+            A_SRL: alu_out <= alu_a >> alu_b[4:0];
 			default: alu_out <= 32'b0;
 		endcase
 	

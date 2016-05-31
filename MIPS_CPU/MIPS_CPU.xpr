@@ -88,14 +88,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk.xdc"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk_board.xdc"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk.v"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk.veo"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk_clk_wiz.v"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="doc/clk_wiz_v5_2_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="slow_clk.xci" FileRelPathName="slow_clk.xml"/>
       </File>
       <File Path="$PSRCDIR/sources_1/data_mem.v">
         <FileInfo>
@@ -131,6 +123,18 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/test_coe/3/fib_ram_init.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/test_coe/beq_bne/rom_init.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/test_coe/beq_bne/ram_init.coe">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -216,23 +220,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.veo"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.vho"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="d:/project/MIPS/USTC-tMIPS/MIPS_CPU/test_coe/4/rom_init.coe"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.xml"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="doc/dist_mem_gen_v8_0_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.mif"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="synth/rom.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/simulation/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="sim/rom.vhd"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_sim_netlist.vhdl"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom.dcp"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_sim_netlist.v"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="rom.xci" FileRelPathName="rom_stub.v"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="rom"/>
@@ -254,18 +241,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="d:/project/MIPS/USTC-tMIPS/MIPS_CPU/test_coe/3/fib_ram_init.coe"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="ram.veo"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="ram.vho"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="sim/ram.vhd"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="dist_mem_gen_v8_0_9/simulation/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="synth/ram.vhd"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="ram_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="doc/dist_mem_gen_v8_0_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="dist_mem_gen_v8_0_9/hdl/dist_mem_gen_v8_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="ram.mif"/>
-        <CompFileExtendedInfo CompFileName="ram.xci" FileRelPathName="ram.xml"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="ram"/>
@@ -308,18 +283,14 @@
     </Run>
     <Run Id="rom_synth_1" Type="Ft3:Synth" SrcSet="rom" Part="xc7a35tcpg236-1" ConstrsSet="rom" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/rom_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="ram_synth_1" Type="Ft3:Synth" SrcSet="ram" Part="xc7a35tcpg236-1" ConstrsSet="ram" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ram_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -342,9 +313,7 @@
     </Run>
     <Run Id="rom_impl_1" Type="Ft2:EntireDesign" Part="xc7a35tcpg236-1" ConstrsSet="rom" Description="Vivado Implementation Defaults" SynthRun="rom_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -358,9 +327,7 @@
     </Run>
     <Run Id="ram_impl_1" Type="Ft2:EntireDesign" Part="xc7a35tcpg236-1" ConstrsSet="ram" Description="Vivado Implementation Defaults" SynthRun="ram_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
