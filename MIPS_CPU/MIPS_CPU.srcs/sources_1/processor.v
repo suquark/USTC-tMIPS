@@ -255,7 +255,7 @@ module processor(
         .alu_out (ALU_ALUOut)
     );
         
-    wire [4:0] EX_rd, EX_rt;
+    wire [4:0] EX_rd, EX_rt, EX_shamt;
     assign EX_rt[4:0] = IDEX_IR[20:16];
     assign EX_rd[4:0] = IDEX_IR[15:11];
     assign EX_shamt[4:0] = IDEX_IR[10:6];

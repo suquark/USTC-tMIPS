@@ -51,6 +51,7 @@ module control_unit(
     parameter FUNCT_SRLV  = 6'b000110;
     parameter FUNCT_ADD   = 6'b100000;
     parameter FUNCT_JR    = 6'b001000;
+    parameter FUNCT_SLT   = 6'b101010;
     
     always @(*)
     begin
@@ -64,12 +65,7 @@ module control_unit(
                         ALUControl = A_SLL;
                         ALUSrc = ALUSrc_SHAMT;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 0;
+                        Branch = 1'b0;
                     end
                     FUNCT_SRL:  begin
                         RegWrite = 1;
@@ -78,12 +74,7 @@ module control_unit(
                         ALUControl = A_SRL;
                         ALUSrc = ALUSrc_SHAMT;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 0;
+                        Branch = 1'b0;
                     end
                     FUNCT_SRA:  begin
                         RegWrite = 1;
@@ -92,12 +83,7 @@ module control_unit(
                         ALUControl = A_SRA;
                         ALUSrc = ALUSrc_SHAMT;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 0;
+                        Branch = 1'b0;
                     end
                     FUNCT_SLLV: begin
                         RegWrite = 1;
@@ -106,12 +92,7 @@ module control_unit(
                         ALUControl = A_SLL;
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 0;
+                        Branch = 1'b0;
                     end
                     FUNCT_SRLV: begin
                         RegWrite = 1;
@@ -120,12 +101,7 @@ module control_unit(
                         ALUControl = A_SRL;
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rd;
-                        BranchN = 0;
-                        BranchZ = 0;
-                        BranchP = 0;
-                        AddrSrc = AddrSrc_IM;
-                        Branch = PCSrcID_NORM;
-                        link = 0;
+                        Branch = 1'b0;
                     end
                     FUNCT_ADD:  begin
                         RegWrite = 1;
@@ -144,6 +120,15 @@ module control_unit(
                         ALUSrc = ALUSrc_REG;
                         RegDst = RegDst_rt;
                         Branch = 1'b1;
+                    end
+                    FUNCT_SLT:  begin
+                        RegWrite = 1;
+                        MemtoReg = MemtoReg_ALU;
+                        MemWrite = 0;
+                        ALUControl = A_SLT;
+                        ALUSrc = ALUSrc_REG;
+                        RegDst = RegDst_rd;
+                        Branch = 1'b0;
                     end
                     default:    begin
                         RegWrite = 0;

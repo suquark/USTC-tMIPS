@@ -37,6 +37,7 @@ module alu(
 			A_SLL: alu_out <= alu_a << alu_b[4:0];
             A_SRA: alu_out <= alu_a >>> alu_b[4:0];
             A_SRL: alu_out <= alu_a >> alu_b[4:0];
+            A_SLT: alu_out <= (alu_a < alu_b) ? 32'b1 : 32'b0;
 			default: alu_out <= 32'b0;
 		endcase
 	
