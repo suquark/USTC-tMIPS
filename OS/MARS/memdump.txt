@@ -1,0 +1,295 @@
+ Address    Code        Basic                     Source
+
+0x00000000  0x0800010e  j 0x00000438          10   j main
+0x00000004  0x0800000c  j 0x00000030          12   j interrupt_routine # 0x80000180 in MIPS
+0x00000008  0x0800000c  j 0x00000030          13   j interrupt_routine # 0x80000180 in MIPS
+0x0000000c  0xafbf0000  sw $31,0x00000000($29)33   <12> sw $ra,($sp)
+0x00000010  0x27bdfffc  addiu $29,$29,0xffffff33   <4> addiu $sp,$sp,-4
+0x00000014  0x24190000  addiu $25,$0,0x000000034   <2> addiu $t9,$zero,0
+0x00000018  0x24198000  addiu $25,$0,0xffff80034   <3> addiu $t9,$zero,-32768
+0x0000001c  0x24198000  addiu $25,$0,0xffff80034   <4> addiu $t9,$zero,-32768
+0x00000020  0xaf240000  sw $4,0x00000000($25) 34   <17> sw $a0,0($t9)
+0x00000024  0x27bd0004  addiu $29,$29,0x00000035   <8> addiu $sp,$sp,4
+0x00000028  0x8fbf0000  lw $31,0x00000000($29)35   <23> lw $ra,($sp)
+0x0000002c  0x03e00008  jr $31                35   <38> jr $ra
+0x00000030  0x24000000  addiu $0,$0,0x00000000110  <114> addiu $zero,$zero,0
+0x00000034  0x24000000  addiu $0,$0,0x00000000110  <115> addiu $zero,$zero,0
+0x00000038  0x24000000  addiu $0,$0,0x00000000110  <116> addiu $zero,$zero,0
+0x0000003c  0x24000000  addiu $0,$0,0x00000000110  <117> addiu $zero,$zero,0
+0x00000040  0x24000000  addiu $0,$0,0x00000000110  <118> addiu $zero,$zero,0
+0x00000044  0xafba0000  sw $26,0x00000000($29)111  <12> sw $k0,($sp)
+0x00000048  0x27bdfffc  addiu $29,$29,0xffffff111  <4> addiu $sp,$sp,-4
+0x0000004c  0xafa10000  sw $1,0x00000000($29) 111  <21> sw $1,($sp)
+0x00000050  0xafa2fffc  sw $2,0xfffffffc($29) 111  <22> sw $2,-4($sp)
+0x00000054  0xafa3fff8  sw $3,0xfffffff8($29) 111  <23> sw $3,-8($sp)
+0x00000058  0xafa4fff4  sw $4,0xfffffff4($29) 111  <24> sw $4,-12($sp)
+0x0000005c  0xafa5fff0  sw $5,0xfffffff0($29) 111  <25> sw $5,-16($sp)
+0x00000060  0xafa6ffec  sw $6,0xffffffec($29) 111  <26> sw $6,-20($sp)
+0x00000064  0xafa7ffe8  sw $7,0xffffffe8($29) 111  <27> sw $7,-24($sp)
+0x00000068  0xafa8ffe4  sw $8,0xffffffe4($29) 111  <28> sw $8,-28($sp)
+0x0000006c  0xafa9ffe0  sw $9,0xffffffe0($29) 111  <29> sw $9,-32($sp)
+0x00000070  0xafaaffdc  sw $10,0xffffffdc($29)111  <30> sw $10,-36($sp)
+0x00000074  0xafabffd8  sw $11,0xffffffd8($29)111  <31> sw $11,-40($sp)
+0x00000078  0xafacffd4  sw $12,0xffffffd4($29)111  <32> sw $12,-44($sp)
+0x0000007c  0xafadffd0  sw $13,0xffffffd0($29)111  <33> sw $13,-48($sp)
+0x00000080  0xafaeffcc  sw $14,0xffffffcc($29)111  <34> sw $14,-52($sp)
+0x00000084  0xafafffc8  sw $15,0xffffffc8($29)111  <35> sw $15,-56($sp)
+0x00000088  0xafb0ffc4  sw $16,0xffffffc4($29)111  <36> sw $16,-60($sp)
+0x0000008c  0xafb1ffc0  sw $17,0xffffffc0($29)111  <37> sw $17,-64($sp)
+0x00000090  0xafb2ffbc  sw $18,0xffffffbc($29)111  <38> sw $18,-68($sp)
+0x00000094  0xafb3ffb8  sw $19,0xffffffb8($29)111  <39> sw $19,-72($sp)
+0x00000098  0xafb4ffb4  sw $20,0xffffffb4($29)111  <40> sw $20,-76($sp)
+0x0000009c  0xafb5ffb0  sw $21,0xffffffb0($29)111  <41> sw $21,-80($sp)
+0x000000a0  0xafb6ffac  sw $22,0xffffffac($29)111  <42> sw $22,-84($sp)
+0x000000a4  0xafb7ffa8  sw $23,0xffffffa8($29)111  <43> sw $23,-88($sp)
+0x000000a8  0xafb8ffa4  sw $24,0xffffffa4($29)111  <44> sw $24,-92($sp)
+0x000000ac  0xafb9ffa0  sw $25,0xffffffa0($29)111  <45> sw $25,-96($sp)
+0x000000b0  0xafbaff9c  sw $26,0xffffff9c($29)111  <46> sw $26,-100($sp)
+0x000000b4  0xafbbff98  sw $27,0xffffff98($29)111  <47> sw $27,-104($sp)
+0x000000b8  0xafbcff94  sw $28,0xffffff94($29)111  <48> sw $28,-108($sp)
+0x000000bc  0xafbeff8c  sw $30,0xffffff8c($29)111  <50> sw $30,-116($sp)
+0x000000c0  0xafbfff88  sw $31,0xffffff88($29)111  <51> sw $31,-120($sp)
+0x000000c4  0x27bdff84  addiu $29,$29,0xffffff111  <52> addiu $sp,$sp,-124  # -4 for
+0x000000c8  0x8c190180  lw $25,0x00000180($0) 111  <7> lw $t9,0x180
+0x000000cc  0xaf3d0200  sw $29,0x00000200($25)111  <8> sw $sp,0x200($t9)
+0x000000d0  0x08000059  j 0x00000164          113  	j hard_schd
+0x000000d4  0x8c190180  lw $25,0x00000180($0) 50   <93> lw $t9,0x180
+0x000000d8  0x8f3d0200  lw $29,0x00000200($25)50   <94> lw $sp,0x200($t9)
+0x000000dc  0x8fa1007c  lw $1,0x0000007c($29) 50   <57> lw $1, 124($sp)
+0x000000e0  0x8fa20078  lw $2,0x00000078($29) 50   <58> lw $2, 120($sp)
+0x000000e4  0x8fa30074  lw $3,0x00000074($29) 50   <59> lw $3, 116($sp)
+0x000000e8  0x8fa40070  lw $4,0x00000070($29) 50   <60> lw $4, 112($sp)
+0x000000ec  0x8fa5006c  lw $5,0x0000006c($29) 50   <61> lw $5, 108($sp)
+0x000000f0  0x8fa60068  lw $6,0x00000068($29) 50   <62> lw $6, 104($sp)
+0x000000f4  0x8fa70064  lw $7,0x00000064($29) 50   <63> lw $7, 100($sp)
+0x000000f8  0x8fa80060  lw $8,0x00000060($29) 50   <64> lw $8, 96($sp)
+0x000000fc  0x8fa9005c  lw $9,0x0000005c($29) 50   <65> lw $9, 92($sp)
+0x00000100  0x8faa0058  lw $10,0x00000058($29)50   <66> lw $10,88($sp)
+0x00000104  0x8fab0054  lw $11,0x00000054($29)50   <67> lw $11, 84($sp)
+0x00000108  0x8fac0050  lw $12,0x00000050($29)50   <68> lw $12, 80($sp)
+0x0000010c  0x8fad004c  lw $13,0x0000004c($29)50   <69> lw $13, 76($sp)
+0x00000110  0x8fae0048  lw $14,0x00000048($29)50   <70> lw $14, 72($sp)
+0x00000114  0x8faf0044  lw $15,0x00000044($29)50   <71> lw $15, 68($sp)
+0x00000118  0x8fb00040  lw $16,0x00000040($29)50   <72> lw $16, 64($sp)
+0x0000011c  0x8fb1003c  lw $17,0x0000003c($29)50   <73> lw $17, 60($sp)
+0x00000120  0x8fb20038  lw $18,0x00000038($29)50   <74> lw $18, 56($sp)
+0x00000124  0x8fb30034  lw $19,0x00000034($29)50   <75> lw $19, 52($sp)
+0x00000128  0x8fb40030  lw $20,0x00000030($29)50   <76> lw $20, 48($sp)
+0x0000012c  0x8fb5002c  lw $21,0x0000002c($29)50   <77> lw $21, 44($sp)
+0x00000130  0x8fb60028  lw $22,0x00000028($29)50   <78> lw $22, 40($sp)
+0x00000134  0x8fb70024  lw $23,0x00000024($29)50   <79> lw $23, 36($sp)
+0x00000138  0x8fb80020  lw $24,0x00000020($29)50   <80> lw $24, 32($sp)
+0x0000013c  0x8fb9001c  lw $25,0x0000001c($29)50   <81> lw $25, 28($sp)
+0x00000140  0x8fba0018  lw $26,0x00000018($29)50   <82> lw $26, 24($sp)
+0x00000144  0x8fbb0014  lw $27,0x00000014($29)50   <83> lw $27, 20($sp)
+0x00000148  0x8fbc0010  lw $28,0x00000010($29)50   <84> lw $28, 16($sp)
+0x0000014c  0x8fbe0008  lw $30,0x00000008($29)50   <86> lw $30, 8($sp)
+0x00000150  0x8fbf0004  lw $31,0x00000004($29)50   <87> lw $31, 4($sp)
+0x00000154  0x27bd007c  addiu $29,$29,0x00000050   <88> addiu $sp,$sp,124
+0x00000158  0x27bd0004  addiu $29,$29,0x00000050   <8> addiu $sp,$sp,4
+0x0000015c  0x8fb90000  lw $25,0x00000000($29)50   <23> lw $t9,($sp)
+0x00000160  0x03200008  jr $25                50   <99> jr $t9
+0x00000164  0x24040040  addiu $4,$0,0x0000004053   <60> addiu $a0,$zero,0x40
+0x00000168  0x24050080  addiu $5,$0,0x0000008053   <60> addiu $a1,$zero,0x80
+0x0000016c  0x8c0600c0  lw $6,0x000000c0($0)  53   <43> lw $a2,0xC0 # get the current priority
+0x00000170  0x8c070180  lw $7,0x00000180($0)  53   <44> lw $a3,0x180
+0x00000174  0x24e20004  addiu $2,$7,0x0000000453   <13> addiu $v0,$a3,4 # begin ....
+0x00000178  0x0045082a  slt $1,$2,$5          53   <49> slt $at,$v0,$a1
+0x0000017c  0x10200008  beq $1,$0,0x00000008  53   <50> beq $at,$zero,step2_M20
+0x00000180  0x8c480100  lw $8,0x00000100($2)  53   <16> lw $t0,0x100($v0)
+0x00000184  0x20010001  addi $1,$0,0x00000001 53   <17> bne $t0,1,skip1_M20 # process ready?
+0x00000188  0x14280003  bne $1,$8,0x00000003       
+0x0000018c  0x00824021  addu $8,$4,$2         53   <18> addu $t0,$a0,$v0 # calc the offset
+0x00000190  0x8d080000  lw $8,0x00000000($8)  53   <19> lw $t0,($t0) # get offset
+0x00000194  0x1106000d  beq $8,$6,0x0000000d  53   <20> beq $t0,$a2,end_M20
+0x00000198  0x24420004  addiu $2,$2,0x0000000453   <8> addiu $v0,$v0,4
+0x0000019c  0x0800005e  j 0x00000178          53   <23> j Loop_M20
+0x000001a0  0x24020000  addiu $2,$0,0x0000000053   <26> addiu $v0,$zero,0 # begin
+0x000001a4  0x0047082a  slt $1,$2,$7          53   <49> slt $at,$v0,$a3
+0x000001a8  0x10200008  beq $1,$0,0x00000008  53   <50> beq $at,$zero,end_M20
+0x000001ac  0x8c480100  lw $8,0x00000100($2)  53   <29> lw $t0,0x100($v0)
+0x000001b0  0x20010001  addi $1,$0,0x00000001 53   <30> bne $t0,1,skip2_M20 # process ready?
+0x000001b4  0x14280003  bne $1,$8,0x00000003       
+0x000001b8  0x00824021  addu $8,$4,$2         53   <31> addu $t0,$a0,$v0 # calc the offset
+0x000001bc  0x8d080000  lw $8,0x00000000($8)  53   <32> lw $t0,($t0) # get offset
+0x000001c0  0x11060002  beq $8,$6,0x00000002  53   <33> beq $t0,$a2,end_M20
+0x000001c4  0x24420004  addiu $2,$2,0x0000000453   <8> addiu $v0,$v0,4
+0x000001c8  0x08000069  j 0x000001a4          53   <36> j Loop2_M20
+0x000001cc  0x00022021  addu $4,$0,$2         55   <64> addu $a0,$zero,$v0
+0x000001d0  0xac040180  sw $4,0x00000180($0)  56   <6> sw $a0,0x180
+0x000001d4  0x201f01dc  addi $31,$0,0x000001dc56   <77> la $ra,jump_back_M27
+0x000001d8  0x08000035  j 0x000000d4          56   <78> j resume_routine
+0x000001dc  0x24040040  addiu $4,$0,0x0000004060   <60> addiu $a0,$zero,0x40
+0x000001e0  0x24050080  addiu $5,$0,0x0000008060   <60> addiu $a1,$zero,0x80
+0x000001e4  0x8c0600c0  lw $6,0x000000c0($0)  60   <43> lw $a2,0xC0 # get the current priority
+0x000001e8  0x8c070180  lw $7,0x00000180($0)  60   <44> lw $a3,0x180
+0x000001ec  0x24e20004  addiu $2,$7,0x0000000460   <13> addiu $v0,$a3,4 # begin ....
+0x000001f0  0x0045082a  slt $1,$2,$5          60   <49> slt $at,$v0,$a1
+0x000001f4  0x10200008  beq $1,$0,0x00000008  60   <50> beq $at,$zero,step2_M31
+0x000001f8  0x8c480100  lw $8,0x00000100($2)  60   <16> lw $t0,0x100($v0)
+0x000001fc  0x20010001  addi $1,$0,0x00000001 60   <17> bne $t0,1,skip1_M31 # process ready?
+0x00000200  0x14280003  bne $1,$8,0x00000003       
+0x00000204  0x00824021  addu $8,$4,$2         60   <18> addu $t0,$a0,$v0 # calc the offset
+0x00000208  0x8d080000  lw $8,0x00000000($8)  60   <19> lw $t0,($t0) # get offset
+0x0000020c  0x1106000d  beq $8,$6,0x0000000d  60   <20> beq $t0,$a2,end_M31
+0x00000210  0x24420004  addiu $2,$2,0x0000000460   <8> addiu $v0,$v0,4
+0x00000214  0x0800007c  j 0x000001f0          60   <23> j Loop_M31
+0x00000218  0x24020000  addiu $2,$0,0x0000000060   <26> addiu $v0,$zero,0 # begin
+0x0000021c  0x0047082a  slt $1,$2,$7          60   <49> slt $at,$v0,$a3
+0x00000220  0x10200008  beq $1,$0,0x00000008  60   <50> beq $at,$zero,end_M31
+0x00000224  0x8c480100  lw $8,0x00000100($2)  60   <29> lw $t0,0x100($v0)
+0x00000228  0x20010001  addi $1,$0,0x00000001 60   <30> bne $t0,1,skip2_M31 # process ready?
+0x0000022c  0x14280003  bne $1,$8,0x00000003       
+0x00000230  0x00824021  addu $8,$4,$2         60   <31> addu $t0,$a0,$v0 # calc the offset
+0x00000234  0x8d080000  lw $8,0x00000000($8)  60   <32> lw $t0,($t0) # get offset
+0x00000238  0x11060002  beq $8,$6,0x00000002  60   <33> beq $t0,$a2,end_M31
+0x0000023c  0x24420004  addiu $2,$2,0x0000000460   <8> addiu $v0,$v0,4
+0x00000240  0x08000087  j 0x0000021c          60   <36> j Loop2_M31
+0x00000244  0x20010080  addi $1,$0,0x00000080 61   	beq $v0,0x80,schd_skip
+0x00000248  0x10220027  beq $1,$2,0x00000027       
+0x0000024c  0xafbf0000  sw $31,0x00000000($29)62   <12> sw $ra,($sp)
+0x00000250  0x27bdfffc  addiu $29,$29,0xffffff62   <4> addiu $sp,$sp,-4
+0x00000254  0xafa10000  sw $1,0x00000000($29) 62   <21> sw $1,($sp)
+0x00000258  0xafa2fffc  sw $2,0xfffffffc($29) 62   <22> sw $2,-4($sp)
+0x0000025c  0xafa3fff8  sw $3,0xfffffff8($29) 62   <23> sw $3,-8($sp)
+0x00000260  0xafa4fff4  sw $4,0xfffffff4($29) 62   <24> sw $4,-12($sp)
+0x00000264  0xafa5fff0  sw $5,0xfffffff0($29) 62   <25> sw $5,-16($sp)
+0x00000268  0xafa6ffec  sw $6,0xffffffec($29) 62   <26> sw $6,-20($sp)
+0x0000026c  0xafa7ffe8  sw $7,0xffffffe8($29) 62   <27> sw $7,-24($sp)
+0x00000270  0xafa8ffe4  sw $8,0xffffffe4($29) 62   <28> sw $8,-28($sp)
+0x00000274  0xafa9ffe0  sw $9,0xffffffe0($29) 62   <29> sw $9,-32($sp)
+0x00000278  0xafaaffdc  sw $10,0xffffffdc($29)62   <30> sw $10,-36($sp)
+0x0000027c  0xafabffd8  sw $11,0xffffffd8($29)62   <31> sw $11,-40($sp)
+0x00000280  0xafacffd4  sw $12,0xffffffd4($29)62   <32> sw $12,-44($sp)
+0x00000284  0xafadffd0  sw $13,0xffffffd0($29)62   <33> sw $13,-48($sp)
+0x00000288  0xafaeffcc  sw $14,0xffffffcc($29)62   <34> sw $14,-52($sp)
+0x0000028c  0xafafffc8  sw $15,0xffffffc8($29)62   <35> sw $15,-56($sp)
+0x00000290  0xafb0ffc4  sw $16,0xffffffc4($29)62   <36> sw $16,-60($sp)
+0x00000294  0xafb1ffc0  sw $17,0xffffffc0($29)62   <37> sw $17,-64($sp)
+0x00000298  0xafb2ffbc  sw $18,0xffffffbc($29)62   <38> sw $18,-68($sp)
+0x0000029c  0xafb3ffb8  sw $19,0xffffffb8($29)62   <39> sw $19,-72($sp)
+0x000002a0  0xafb4ffb4  sw $20,0xffffffb4($29)62   <40> sw $20,-76($sp)
+0x000002a4  0xafb5ffb0  sw $21,0xffffffb0($29)62   <41> sw $21,-80($sp)
+0x000002a8  0xafb6ffac  sw $22,0xffffffac($29)62   <42> sw $22,-84($sp)
+0x000002ac  0xafb7ffa8  sw $23,0xffffffa8($29)62   <43> sw $23,-88($sp)
+0x000002b0  0xafb8ffa4  sw $24,0xffffffa4($29)62   <44> sw $24,-92($sp)
+0x000002b4  0xafb9ffa0  sw $25,0xffffffa0($29)62   <45> sw $25,-96($sp)
+0x000002b8  0xafbaff9c  sw $26,0xffffff9c($29)62   <46> sw $26,-100($sp)
+0x000002bc  0xafbbff98  sw $27,0xffffff98($29)62   <47> sw $27,-104($sp)
+0x000002c0  0xafbcff94  sw $28,0xffffff94($29)62   <48> sw $28,-108($sp)
+0x000002c4  0xafbeff8c  sw $30,0xffffff8c($29)62   <50> sw $30,-116($sp)
+0x000002c8  0xafbfff88  sw $31,0xffffff88($29)62   <51> sw $31,-120($sp)
+0x000002cc  0x27bdff84  addiu $29,$29,0xffffff62   <52> addiu $sp,$sp,-124  # -4 for
+0x000002d0  0x8c190180  lw $25,0x00000180($0) 62   <14> lw $t9,0x180
+0x000002d4  0xaf3d0200  sw $29,0x00000200($25)62   <15> sw $sp,0x200($t9)
+0x000002d8  0x00022021  addu $4,$0,$2         63   <64> addu $a0,$zero,$v0
+0x000002dc  0xac040180  sw $4,0x00000180($0)  64   <6> sw $a0,0x180
+0x000002e0  0x201f02e8  addi $31,$0,0x000002e864   <77> la $ra,jump_back_M42
+0x000002e4  0x08000035  j 0x000000d4          64   <78> j resume_routine
+0x000002e8  0x03e00008  jr $31                66   	jr $ra
+0x000002ec  0xafbf0000  sw $31,0x00000000($29)29   <12> sw $ra,($sp)
+0x000002f0  0x27bdfffc  addiu $29,$29,0xffffff29   <4> addiu $sp,$sp,-4
+0x000002f4  0x240a0100  addiu $10,$0,0x000001030   <60> addiu $t2,$zero,0x100
+0x000002f8  0x8d4b0000  lw $11,0x00000000($10)32   	lw $t3,($t2)
+0x000002fc  0x11600002  beq $11,$0,0x00000002 33   	beq $t3,$zero,create_process_done
+0x00000300  0x254a0004  addiu $10,$10,0x00000034   <8> addiu $t2,$t2,4
+0x00000304  0x080000be  j 0x000002f8          35   	j create_process_loop
+0x00000308  0x240b0002  addiu $11,$0,0x000000037   <60> addiu $t3,$zero,2
+0x0000030c  0xad4b0000  sw $11,0x00000000($10)38     	sw $t3,($t2)
+0x00000310  0x254aff00  addiu $10,$10,0xffffff39     	addiu $t2,$t2,-0x100
+0x00000314  0x8c0800c0  lw $8,0x000000c0($0)  40   <11> lw $t0,0xC0
+0x00000318  0xad480040  sw $8,0x00000040($10) 40   <12> sw $t0,0x40($t2)  # use PID as offset
+0x0000031c  0x24080000  addiu $8,$0,0x0000000041   <73> addiu $t0,$zero,0
+0x00000320  0x000a4821  addu $9,$0,$10        41   <64> addu $t1,$zero,$t2
+0x00000324  0x20010000  addi $1,$0,0x00000000 41   <102> beq $t1,0,end_M51
+0x00000328  0x10290003  beq $1,$9,0x00000003       
+0x0000032c  0x25080020  addiu $8,$8,0x0000002041   <103> addiu $t0,$t0,0x20
+0x00000330  0x2529ffff  addiu $9,$9,0xffffffff41   <104> addiu $t1,$t1,-1
+0x00000334  0x080000c9  j 0x00000324          41   <105> j loop_M51
+0x00000338  0x25080300  addiu $8,$8,0x0000030041   <20> addiu $t0,$t0,0x300
+0x0000033c  0xad040000  sw $4,0x00000000($8)  41   <21> sw $a0,($t0) # Construct the entry
+0x00000340  0x2508ff80  addiu $8,$8,0xffffff8041   <22> addiu $t0,$t0,-128  # ???
+0x00000344  0xad480200  sw $8,0x00000200($10) 41   <23> sw $t0,0x200($t2) # Save the stack
+0x00000348  0x000a1021  addu $2,$0,$10        42   <64> addu $v0,$zero,$t2
+0x0000034c  0x27bd0004  addiu $29,$29,0x00000043   <8> addiu $sp,$sp,4
+0x00000350  0x8fbf0000  lw $31,0x00000000($29)43   <23> lw $ra,($sp)
+0x00000354  0x03e00008  jr $31                43   <38> jr $ra
+0x00000358  0xafbf0000  sw $31,0x00000000($29)50   <12> sw $ra,($sp)
+0x0000035c  0x27bdfffc  addiu $29,$29,0xffffff50   <4> addiu $sp,$sp,-4
+0x00000360  0xac850040  sw $5,0x00000040($4)  51   	sw $a1,0x40($a0)
+0x00000364  0x8c1900c0  lw $25,0x000000c0($0) 52   	lw $t9,0xC0
+0x00000368  0x00b9082a  slt $1,$5,$25         53   <49> slt $at,$a1,$t9
+0x0000036c  0x1020000e  beq $1,$0,0x0000000e  53   <50> beq $at,$zero,update_priority
+0x00000370  0x24040040  addiu $4,$0,0x0000004055   <60> addiu $a0,$zero,0x40
+0x00000374  0x24050080  addiu $5,$0,0x0000008056   <60> addiu $a1,$zero,0x80
+0x00000378  0x2402ffff  addiu $2,$0,0xffffffff57   <43> addiu $v0,$zero,-1 # begin,findmax roution
+0x0000037c  0x24080000  addiu $8,$0,0x0000000057   <44> addiu $t0,$zero,0
+0x00000380  0x0105082a  slt $1,$8,$5          57   <47> bge $t0,$a1,end_M64
+0x00000384  0x10200007  beq $1,$0,0x00000007       
+0x00000388  0x0088c821  addu $25,$4,$8        57   <48> addu $t9,$a0,$t0 # calc the offset
+0x0000038c  0x8f390000  lw $25,0x00000000($25)57   <49> lw $t9,($t9) # get offset
+0x00000390  0x0059082a  slt $1,$2,$25         57   <50> bge $v0,$t9,skip0_M64
+0x00000394  0x10200001  beq $1,$0,0x00000001       
+0x00000398  0x00191021  addu $2,$0,$25        57   <64> addu $v0,$zero,$t9
+0x0000039c  0x25080004  addiu $8,$8,0x0000000457   <8> addiu $t0,$t0,4
+0x000003a0  0x080000e0  j 0x00000380          57   <54> j Loop_M64
+0x000003a4  0x00022821  addu $5,$0,$2         58   <64> addu $a1,$zero,$v0
+0x000003a8  0xac0500c0  sw $5,0x000000c0($0)  60   	sw $a1,0xC0
+0x000003ac  0x27bd0004  addiu $29,$29,0x00000061   <8> addiu $sp,$sp,4
+0x000003b0  0x8fbf0000  lw $31,0x00000000($29)61   <23> lw $ra,($sp)
+0x000003b4  0x03e00008  jr $31                61   <38> jr $ra
+0x000003b8  0xafbf0000  sw $31,0x00000000($29)65   <12> sw $ra,($sp)
+0x000003bc  0x27bdfffc  addiu $29,$29,0xffffff65   <4> addiu $sp,$sp,-4
+0x000003c0  0x24190001  addiu $25,$0,0x000000066   <60> addiu $t9,$zero,1
+0x000003c4  0xac990100  sw $25,0x00000100($4) 67   	sw $t9,0x100($a0)
+0x000003c8  0x27bd0004  addiu $29,$29,0x00000068   <8> addiu $sp,$sp,4
+0x000003cc  0x8fbf0000  lw $31,0x00000000($29)68   <23> lw $ra,($sp)
+0x000003d0  0x03e00008  jr $31                68   <38> jr $ra
+0x000003d4  0xafbf0000  sw $31,0x00000000($29)71   <12> sw $ra,($sp)
+0x000003d8  0x27bdfffc  addiu $29,$29,0xffffff71   <4> addiu $sp,$sp,-4
+0x000003dc  0xac800100  sw $0,0x00000100($4)  72   	sw $zero, 0x100($a0) # PSTATE_DEAD
+0x000003e0  0x24050000  addiu $5,$0,0x0000000073   <60> addiu $a1,$zero,0
+0x000003e4  0x201f03ec  addi $31,$0,0x000003ec74   <77> la $ra,jump_back_M82
+0x000003e8  0x080000d6  j 0x00000358          74   <78> j AdjustPriority
+0x000003ec  0x27bd0004  addiu $29,$29,0x00000075   <8> addiu $sp,$sp,4
+0x000003f0  0x8fbf0000  lw $31,0x00000000($29)75   <23> lw $ra,($sp)
+0x000003f4  0x03e00008  jr $31                75   <38> jr $ra
+0x000003f8  0xafbf0000  sw $31,0x00000000($29)78   <12> sw $ra,($sp)
+0x000003fc  0x27bdfffc  addiu $29,$29,0xffffff78   <4> addiu $sp,$sp,-4
+0x00000400  0x8c080180  lw $8,0x00000180($0)  79   	lw $t0,0x180
+0x00000404  0x00082021  addu $4,$0,$8         80   <64> addu $a0,$zero,$t0
+0x00000408  0x201f0410  addi $31,$0,0x0000041080   <77> la $ra,jump_back_M91
+0x0000040c  0x080000f5  j 0x000003d4          80   <78> j KillProcess
+0x00000410  0x201f0418  addi $31,$0,0x0000041881   <77> la $ra,jump_back_M92
+0x00000414  0x08000077  j 0x000001dc          81   <78> j SoftSchedule
+0x00000418  0x27bd0004  addiu $29,$29,0x00000082   <8> addiu $sp,$sp,4
+0x0000041c  0x8fbf0000  lw $31,0x00000000($29)82   <23> lw $ra,($sp)
+0x00000420  0x03e00008  jr $31                82   <38> jr $ra
+0x00000424  0x8c040180  lw $4,0x00000180($0)  36   	lw $a0,0x180
+0x00000428  0x24840001  addiu $4,$4,0x0000000137   	addiu $a0,$a0,1
+0x0000042c  0x201f0434  addi $31,$0,0x0000043438   <77> la $ra,jump_back_M96
+0x00000430  0x08000003  j 0x0000000c          38   <78> j ioLED
+0x00000434  0x08000109  j 0x00000424          41   	j test_led
+0x00000438  0x241d0300  addiu $29,$0,0x000003044   <60> addiu $sp,$zero,0x300
+0x0000043c  0x24040000  addiu $4,$0,0x0000000044   <60> addiu $a0,$zero,0
+0x00000440  0x201f0448  addi $31,$0,0x0000044844   <77> la $ra,jump_back_M101
+0x00000444  0x080000ee  j 0x000003b8          44   <78> j StartProcess
+0x00000448  0x20040424  addi $4,$0,0x00000424 45   <93> la $a0,test_led
+0x0000044c  0x201f0454  addi $31,$0,0x0000045445   <77> la $ra,jump_back_M104
+0x00000450  0x080000bb  j 0x000002ec          45   <78> j CreateProcess
+0x00000454  0x00022021  addu $4,$0,$2         45   <64> addu $a0,$zero,$v0
+0x00000458  0x201f0460  addi $31,$0,0x0000046045   <77> la $ra,jump_back_M107
+0x0000045c  0x080000ee  j 0x000003b8          45   <78> j StartProcess
+0x00000460  0x20040424  addi $4,$0,0x00000424 46   <93> la $a0,test_led
+0x00000464  0x201f046c  addi $31,$0,0x0000046c46   <77> la $ra,jump_back_M110
+0x00000468  0x080000bb  j 0x000002ec          46   <78> j CreateProcess
+0x0000046c  0x00022021  addu $4,$0,$2         46   <64> addu $a0,$zero,$v0
+0x00000470  0x201f0478  addi $31,$0,0x0000047846   <77> la $ra,jump_back_M113
+0x00000474  0x080000ee  j 0x000003b8          46   <78> j StartProcess
+0x00000478  0x20040424  addi $4,$0,0x00000424 47   <93> la $a0,test_led
+0x0000047c  0x201f0484  addi $31,$0,0x0000048447   <77> la $ra,jump_back_M116
+0x00000480  0x080000bb  j 0x000002ec          47   <78> j CreateProcess
+0x00000484  0x00022021  addu $4,$0,$2         47   <64> addu $a0,$zero,$v0
+0x00000488  0x201f0490  addi $31,$0,0x0000049047   <77> la $ra,jump_back_M119
+0x0000048c  0x080000ee  j 0x000003b8          47   <78> j StartProcess
+0x00000490  0x08000109  j 0x00000424          48   	j test_led

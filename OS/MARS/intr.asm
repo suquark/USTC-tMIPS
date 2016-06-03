@@ -85,7 +85,7 @@ lw $28, 16($sp)
 # lw $29, 12($sp)  # do not destroy it !!!
 lw $30, 8($sp)
 lw $31, 4($sp)
-addi $sp,$sp,124
+addiu $sp,$sp,124
 .end_macro
 
 .macro _resume	
@@ -100,6 +100,15 @@ addi $sp,$sp,124
 	### TODO: enable interrupt
 .end_macro
 
+
+.eqv TIMER_INT xxxxx
+.eqv BUTTON_INT1 xxxxx
+
+
+
 interrupt_routine:
+    	_nop5
 	_k_save
+	# j resume_routine
+	j hard_schd
 	# _en_int

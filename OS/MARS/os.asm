@@ -3,13 +3,22 @@
 .include "utils.asm"
 .include "sysutil.asm"
 
+# ^001001 -> ^001000
+# 100001$ -> 100000$
+
+
 j main
+# For interrupt
+j interrupt_routine # 0x80000180 in MIPS
+j interrupt_routine # 0x80000180 in MIPS
+
+.include "io.asm"
+
 
 .include "intr.asm"
 .include "sched.asm"
 
 .include "proc.asm"
-
 
 
 .macro initial_system
@@ -18,58 +27,27 @@ j main
 .end_macro
 
 
-func:
-	lw $t0,PID
-	print_int $t0
-	print_str "\n"
-	
-	_jal SoftSchedule
-	j func
-
 .macro test
-	calla CreateProcess,func
+	calla CreateProcess,test_led
 	callr StartProcess,$v0
 .end_macro
 
+test_led:
+	lw $a0,PID
+	addiu $a0,$a0,1
+	_jal ioLED
+	
+	# _jal SoftSchedule
+	j test_led
+
 main:
 	initial_system
-	#test
-	#sw $v0,LED
+	test
+	test
+	test
+	j test_led
+
+
+
 	#deadloop()
 
-test2:
-	for ($t4, 1, 31, test) # [1,31]
-	calli KillProcess,16
-	
-	GetPID $a0
-	movi $a1,2
-	_jal AdjustPriority
-	
-	movi $a0,12
-	movi $a1,2
-	_jal AdjustPriority
-	
-	movi $a0,20
-	movi $a1,1
-	_jal AdjustPriority
-	
-	lw $t0,PID
-	print_int $t0
-	print_str "\n"
-	_jal SoftSchedule # hhhhhh
-	
-	lw $t0,PID
-	print_int $t0
-	print_str "\n"
-	
-	calli KillProcess,0
-	calli KillProcess,12
-	calli KillProcess,20
-	_jal SoftSchedule
-	lw $t0,PID
-	print_int $t0
-	print_str "\n"
-	
-	_jal ExitProcess
-	_jal SoftSchedule
-	j func

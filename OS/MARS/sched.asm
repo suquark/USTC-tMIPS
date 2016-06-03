@@ -1,17 +1,11 @@
 # This file is about schedule
 
-.macro hard_schd
-	_LookupRR
-	beq $v0,0x80,schd_skip
-	movr $a0,$v0
-    	force_switchto($a0)
-    schd_skip:
-.end_macro
+
 
 .macro force_switchto(%PID)
 	sw %PID,PID
 	# TODO: Here may be some problems. Disable the interrupt? 
-	jal resume_routine
+	_jal resume_routine
 .end_macro
 
 .macro locate_other_ready_rr0 (%base, %offset, %src, %skip)
@@ -55,6 +49,13 @@ resume_routine:
 	# _cls_int
 	_resume  # Will cause it to go back 
 	
+hard_schd:
+	_LookupRR
+	#beq $v0,0x80,schd_skip # we will comeback
+	movr $a0,$v0
+    	force_switchto($a0)
+    
+
 SoftSchedule:
 	_LookupRR
 	beq $v0,0x80,schd_skip

@@ -65,7 +65,7 @@ addiu %reg,%reg,4
 .end_macro
 
 .macro pushp(%pt)
-	la $t0,%pt
+	addiu $t0,$zero,%pt
 	push %pt
 .end_macro
 
@@ -106,3 +106,14 @@ loop:
 end:
 .end_macro
 
+.macro _nop
+	addiu $zero,$zero,0
+.end_macro
+
+.macro _nop5
+	addiu $zero,$zero,0	
+	addiu $zero,$zero,0	
+	addiu $zero,$zero,0	
+	addiu $zero,$zero,0
+	addiu $zero,$zero,0
+.end_macro
