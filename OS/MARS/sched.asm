@@ -3,7 +3,7 @@
 
 
 .macro force_switchto(%PID)
-	sw %PID,PID
+	sw %PID,PID # PID is most important
 	# TODO: Here may be some problems. Disable the interrupt? 
 	_jal resume_routine
 .end_macro
@@ -51,8 +51,9 @@ resume_routine:
 	
 hard_schd:
 	_LookupRR
+	#_k_save
 	#beq $v0,0x80,schd_skip # we will comeback
-	movr $a0,$v0
+	movr $a0,$v0 # get next process
     	force_switchto($a0)
     
 

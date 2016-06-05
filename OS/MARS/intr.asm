@@ -88,18 +88,35 @@ lw $31, 4($sp)
 addiu $sp,$sp,124
 .end_macro
 
-.macro _resume	
+
+.macro disable_interrupt
+	addiu $t8,$zero,0
+	sendout $t8,0x100
+	_nop5
+.end_macro
+
+# 0xFFFF0100
+.macro enable_interrupt
+	addiu $t8,$zero,1
+	sendout $t8,0x100
+	_nop5
+.end_macro
+
+.macro _resume
+	disable_interrupt # we'd better protect the context
 	# resume the stack first for restore
 	lw $t9,PID
 	lw $sp,SSTACK($t9)
 	loadall
-	# Ok, last we branch to origin
-	### TODO: disable interrupt, to protect $t9 (it will be destoryed in another resume)
-	pop $t9
-	jr $t9
-	### TODO: enable interrupt
+	enable_interrupt # enable interrupt,!!!! will destroy $t9
+	iret9  # Ok, last we branch to origin
 .end_macro
 
+# unset timer routine, mark it as completed
+.macro unset_timer
+	ref_interrupt
+	sw $zero,0x4($t9)
+.end_macro
 
 .eqv TIMER_INT xxxxx
 .eqv BUTTON_INT1 xxxxx
@@ -107,8 +124,8 @@ addiu $sp,$sp,124
 
 
 interrupt_routine:
-    	_nop5
+    	# TODO: case sentense
+    	unset_timer # mark the timer
 	_k_save
 	# j resume_routine
 	j hard_schd
-	# _en_int
