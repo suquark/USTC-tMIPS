@@ -39,7 +39,8 @@ module processor(
     // segment registers
     reg [31:0] IFID_IR, IFID_PC;
     
-    reg IDEX_RegWrite, IDEX_MemtoReg, IDEX_MemWrite, IDEX_ALUSrc, IDEX_RegDst, IDEX_link;
+    reg IDEX_RegWrite, IDEX_MemtoReg, IDEX_MemWrite, IDEX_RegDst, IDEX_link;
+    reg [1:0] IDEX_ALUSrc;
     reg [4:0] IDEX_ALUControl;
     reg [31:0] IDEX_IM, IDEX_A, IDEX_B, IDEX_IR, IDEX_PC;
     
@@ -140,7 +141,8 @@ module processor(
         .r1_dout    (reg_r1_dout),
         .r2_dout    (reg_r2_dout)
     );
-    wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_ALUSrc, cu_IDEX_RegDst;
+    wire cu_IDEX_RegWrite, cu_IDEX_MemtoReg, cu_IDEX_MemWrite, cu_IDEX_RegDst;
+    wire [1:0] cu_IDEX_ALUSrc;
     wire cu_br;
     wire [4:0] cu_IDEX_ALUControl;
     
