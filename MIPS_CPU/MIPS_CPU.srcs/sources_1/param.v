@@ -62,3 +62,7 @@ parameter INT_INDEX_SOFT = 5'h02;
 
 parameter IO_INDEX_LED = 5'h00;
 parameter IO_INDEX_SWITCH = 5'h01;
+parameter IO_INDEX_SSEG_0 = 5'h02;
+parameter IO_INDEX_SSEG_1 = 5'h03;
+parameter IO_INDEX_SSEG_2 = 5'h04;
+parameter IO_INDEX_SSEG_3 = 5'h05;

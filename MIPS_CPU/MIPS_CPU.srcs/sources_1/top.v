@@ -23,7 +23,7 @@
 module top(
     input clk_orig,
     input rst_n,
-    input [15:1] sw,
+    input [15:1] sw_raw,
     output reg [15:0] led
     );
     
@@ -39,6 +39,9 @@ module top(
         .clk_orig(clk_orig),
         .clk(clk)
     );
+    
+    wire [15:1] sw;
+    debounce _debounce(clk, sw_raw, sw);
     
     wire int_req;
     wire int_ack;
@@ -169,6 +172,37 @@ module top(
         if (~rst_n) led <= 16'h0000;
         else        led <= (io_write && io_index == IO_INDEX_LED) ? io_wd : led;
     end
+    
+    // Seven Segment Display output
+    reg [3:0] sseg_data[3:0];
+    always @(posedge clk or negedge rst_n)
+    begin
+        if (~rst_n) sseg_data[0] <= 32'h00000000;
+        else        sseg_data[0] <= (io_write && io_index == IO_INDEX_SSEG_0) ? io_wd : sseg_data;
+        
+        if (~rst_n) sseg_data[1] <= 32'h00000000;
+        else        sseg_data[1] <= (io_write && io_index == IO_INDEX_SSEG_1) ? io_wd : sseg_data;
+
+        if (~rst_n) sseg_data[2] <= 32'h00000000;
+        else        sseg_data[2] <= (io_write && io_index == IO_INDEX_SSEG_2) ? io_wd : sseg_data;
+
+        if (~rst_n) sseg_data[3] <= 32'h00000000;
+        else        sseg_data[3] <= (io_write && io_index == IO_INDEX_SSEG_3) ? io_wd : sseg_data;
+    end
+    
+    wire [7:0] seg0;
+    wire [7:0] seg1;
+    wire [7:0] seg2;
+    wire [7:0] seg3;
+    
+    ssegdecode decoder0(sseg_data[0], 0, seg0);
+    ssegdecode decoder1(sseg_data[1], 0, seg1);
+    ssegdecode decoder2(sseg_data[2], 0, seg2);
+    ssegdecode decoder3(sseg_data[3], 0, seg3);
+    
+    wire sseg_clk;
+    sseg_clock_gen gen(clk, sseg_clk);
+    ssegout out(clk_generated, seg3, seg2, seg1, seg0, seg, an);
     
     // Memory-Mapped Input
     always @(*)
