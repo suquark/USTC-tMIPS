@@ -19,12 +19,14 @@
 	_muli1 $t0,%pid,STACK_SIZE_4
 	addiu $t0,$t0,STACK
 	sw %entry,($t0) # Construct the entry
+	sw $a1,-16($t0)   #a0
+	sw $a2,-20($t0)   #a1
 	addiu $t0,$t0,-128  # ???
 	sw $t0,SSTACK(%pid) # Save the stack
 .end_macro
 
 ###  destroy t0,t2,t3 
-CreateProcess: # entry($a0) : PID
+CreateProcess: # entry($a0) : PID, $a1
 	# use $t0,$t2
 	enter
 	movi $t2,PCB
@@ -48,6 +50,10 @@ CreateProcess: # entry($a0) : PID
 
 AdjustPriority: # PID($a0) Level($a1)
 	enter
+	lw $t8,PCB($a0)  # use PID as offset
+	bne $t8,$zero, prior_check_ok # PSTATE_DEAD
+	ret
+prior_check_ok: # Process is not dead
 	sw $a1,PST($a0)
 	lw $t9,PST_HIGHEST
 	_bge $a1,$t9,update_priority

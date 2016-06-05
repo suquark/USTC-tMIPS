@@ -99,6 +99,12 @@ jump_back:
 	_jal %func
 .end_macro
 
+.macro call2i(%f,%arg0,%arg1)
+	movi $a0,%arg0
+	movi $a1,%arg1
+	_jal %f
+.end_macro
+
 # mul $t0,%pid,STACK_SIZE_4
 .macro _muli1(%dst,%a,%imm)
 	zero %dst
