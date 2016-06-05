@@ -38,6 +38,11 @@ addiu %reg,%reg,4
 	jr $ra
 .end_macro
 
+.macro iret9
+	pop $t9
+	jr $t9
+.end_macro
+
 .macro _sub(%regd,%rega,%regb)
 	not %regb,%regb
 	addu %regd,%rega,%regb

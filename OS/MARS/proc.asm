@@ -80,3 +80,8 @@ ExitProcess:
 	callr KillProcess,$t0
 	_jal SoftSchedule # Never return
 	ret
+
+.macro initial_system
+	movi $sp,STACK
+	calli StartProcess,0 # The main process
+.end_macro

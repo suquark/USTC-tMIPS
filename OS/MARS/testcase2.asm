@@ -1,3 +1,8 @@
+.macro createp
+	calla CreateProcess,func
+	callr StartProcess,$v0
+.end_macro
+
 func:
 	lw $t0,PID
 	print_int $t0
@@ -7,7 +12,7 @@ func:
 	j func
 
 test2:
-	for ($t4, 1, 31, test) # [1,31]
+	for ($t4, 1, 31, createp) # [1,31]
 	calli KillProcess,16
 	
 	GetPID $a0
