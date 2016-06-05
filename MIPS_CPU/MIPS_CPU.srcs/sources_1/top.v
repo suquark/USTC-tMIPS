@@ -25,7 +25,7 @@ module top(
     input rst_n,
     input [15:1] sw_raw,
     output reg [15:0] led,
-    output [6:0] seg,
+    output [7:0] seg,
     output [3:0] an
     );
     
@@ -43,7 +43,13 @@ module top(
     );
     
     wire [15:1] sw;
-    debounce _debounce(clk, sw_raw, sw);
+    genvar gv_sw_i;
+    generate
+        for (gv_sw_i = 1; gv_sw_i < 16; gv_sw_i = gv_sw_i + 1)
+        begin : gen_sw_debounce
+            debounce _debounce(clk, sw_raw[gv_sw_i], sw[gv_sw_i]);
+        end
+    endgenerate
     
     wire int_req;
     wire int_ack;
@@ -59,7 +65,7 @@ module top(
     wire [31:0] int_mask_wd;
     
     wire io_write;
-    wire io_index;
+    wire [4:0] io_index;
     reg  [31:0] io_rd;
     wire [31:0] io_wd;
     
@@ -190,7 +196,7 @@ module top(
     ssegdecode decoder1(sseg_data[7:4],   seg1);
     ssegdecode decoder2(sseg_data[11:8],  seg2);
     ssegdecode decoder3(sseg_data[15:12], seg3);
-    ssegout out(clk, seg3, seg2, seg1, seg0, seg, an);
+    ssegout out(clk, rst_n, seg3, seg2, seg1, seg0, seg, an);
     
     // Memory-Mapped Input
     always @(*)
