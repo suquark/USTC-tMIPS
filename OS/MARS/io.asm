@@ -10,7 +10,11 @@
     addiu $t9,$t9,0x80
 .end_macro
 
-
+.macro ref_intr(%reg)
+    addiu %reg,$zero,-32768
+    addiu %reg,%reg,-32768
+    addiu %reg,%reg,0x80
+.end_macro
 
 
 .macro sendout(%reg,%offset)
@@ -18,7 +22,10 @@
 	sw %reg,%offset($t9)
 .end_macro
 
-
+ioSSEG: # $a0=content
+    enter
+    sendout $a0,8
+    ret
 
 
 ioLED: # $a0=content

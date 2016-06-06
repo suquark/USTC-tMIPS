@@ -19,6 +19,7 @@ test_create_and_kill:
 test_led:
 	lw $a0,PID
 	_jal ioLED
+	_jal ioSSEG
 	j test_led
 test_param:
 	#lw $a0,PID

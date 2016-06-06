@@ -25,7 +25,7 @@ addiu %reg,%reg,4
 
 .macro pop (%reg1,%reg2)
 	pop %reg1
-	push %reg2
+	pop %reg2
 .end_macro
 
 
@@ -116,6 +116,14 @@ loop:
 	j loop
 end:
 .end_macro
+
+# lw %rega,(%regb+%regc)
+.macro _lwo(%rega,%regb,%regc)
+	addu %rega,%regb,%regc
+	lw %rega,(%rega)
+.end_macro
+
+
 
 .macro _nop
 	addiu $zero,$zero,0

@@ -1,3 +1,9 @@
+# interrupt service routine
+.eqv ISR 0x2000 
+.eqv Timer_ISR 0x2004
+
+
+
 # process schedule table
 .eqv PST 0x2040
 # 32 items, 4*32

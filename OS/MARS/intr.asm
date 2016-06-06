@@ -112,20 +112,21 @@ addiu $sp,$sp,124
 	iret9  # Ok, last we branch to origin
 .end_macro
 
-# unset timer routine, mark it as completed
-.macro unset_timer
-	ref_interrupt
-	sw $zero,0x4($t9)
+.macro exISR(%reg) #the reg saves the interrupt info
+	lw $t9,ISR(%reg)
+	jr $t9
 .end_macro
 
-.eqv TIMER_INT xxxxx
-.eqv BUTTON_INT1 xxxxx
-
-
-
 interrupt_routine:
-    	# TODO: case sentense
-    	unset_timer # mark the timer
 	_k_save
-	# j resume_routine
-	j hard_schd
+	zero $t1
+	ref_intr($t9)
+  intr_seek_loop:
+	_lwo $t2,$t1,$t9 # t2 keeps interrupt 
+  	bne $t2,$zero,intr_enter_routine
+  	addiu $t1,$t1,0x4
+  	j intr_seek_loop
+  intr_enter_routine:
+  	addu $t2,$t1,$t9
+  	sw $zero,($t2)  # unset interrupt
+  	exISR($t1)
