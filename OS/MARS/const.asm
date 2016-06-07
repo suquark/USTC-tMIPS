@@ -1,7 +1,8 @@
 # interrupt service routine
-.eqv ISR 0x2000 
+.eqv ISR 0x2000
+.eqv Switch_ISR 0x2000
 .eqv Timer_ISR 0x2004
-
+.eqv Soft_ISR 0x2008
 
 
 # process schedule table

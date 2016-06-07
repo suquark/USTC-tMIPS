@@ -22,6 +22,17 @@
 	sw %reg,%offset($t9)
 .end_macro
 
+
+.macro readin(%reg,%offset)
+	ref_output
+	lw %reg,%offset($t9)
+.end_macro
+
+readSwitch:
+	enter
+	readin $v0,4 
+	ret
+
 ioSSEG: # $a0=content
     enter
     sendout $a0,8

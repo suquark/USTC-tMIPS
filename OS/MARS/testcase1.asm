@@ -1,5 +1,13 @@
 # Test case 1
 # This test is for testing process management & schedule
+button_rt:
+	_jal readSwitch  #v0
+	beq $v0,$zero,button0
+	movr $a1,$v0
+	calla CreateProcess,test_param #adddd 
+	callr StartProcess,$v0
+  button0:
+	j resume_routine
 
 test_prior:
 	call2i AdjustPriority,12,1
@@ -27,6 +35,9 @@ test_param:
 	_jal ioLED
 	j test_param
 testcase1:
+	la $t0,button_rt  # ensure it it in low-space
+	sw $t0,Switch_ISR
+	
 	calla CreateProcess,test_led # 4
 	callr StartProcess,$v0
 	
