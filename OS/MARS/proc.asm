@@ -1,6 +1,6 @@
 
 .macro SetPriority(%pid,%pri) # PID, Priority
-	addiu $t0, %pid, PST # use PID as offset
+	addi $t0, %pid, PST # use PID as offset
 	sw %pri,($t0)
 	
 	# TODO: update the highest priority
@@ -17,11 +17,11 @@
 .macro initial_process0(%pid,%entry)
 	# mul $t0,%pid,STACK_SIZE_4
 	_muli1 $t0,%pid,STACK_SIZE_4
-	addiu $t0,$t0,STACK
+	addi $t0,$t0,STACK
 	sw %entry,($t0) # Construct the entry
 	sw $a1,-16($t0)   #a0
 	sw $a2,-20($t0)   #a1
-	addiu $t0,$t0,-128  # ???
+	addi $t0,$t0,-128  # ???
 	sw $t0,SSTACK(%pid) # Save the stack
 .end_macro
 
@@ -38,7 +38,7 @@ CreateProcess: # entry($a0) : PID, $a1
   create_process_done:
   	movi $t3,PSTATE_NEW
   	sw $t3,($t2)
-  	addiu $t2,$t2,-PCB
+  	addi $t2,$t2,-PCB
   	InheritPriority($t2) # use t0 t1
   	initial_process0($t2,$a0)
 	movr $v0,$t2 # return PID

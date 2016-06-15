@@ -44,4 +44,5 @@ testcase1:
 	calla CreateProcess,test_create_and_kill # 8 
 	callr StartProcess,$v0
 	
+	#j SoftSchedule
 	j test_led

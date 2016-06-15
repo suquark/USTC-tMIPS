@@ -1,6 +1,4 @@
-# This file is about schedule
-
-
+# This file is about schedule & timing
 
 .macro force_switchto(%PID)
 	sw %PID,PID # PID is most important
@@ -10,12 +8,12 @@
 
 .macro locate_other_ready_rr0 (%base, %offset, %src, %skip)
 # [%skip+1, %offset)
-	addiu $v0,%skip,4 # begin ....
+	addi $v0,%skip,4 # begin ....
 Loop:
 	_bge $v0,%offset,step2 # check range
 	lw $t0,PCB($v0)
 	bne $t0,PSTATE_READY,skip1 # process ready?
-	addu $t0,%base,$v0 # calc the offset
+	add $t0,%base,$v0 # calc the offset
 	lw $t0,($t0) # get offset
 	beq $t0,%src,end
 skip1:
@@ -23,12 +21,12 @@ skip1:
 	j Loop
 step2:
 # [0, %skip)
-	addiu $v0,$zero,0 # begin
+	addi $v0,$zero,0 # begin
 Loop2:
 	_bge $v0,%skip,end # check range
 	lw $t0,PCB($v0)
 	bne $t0,PSTATE_READY,skip2 # process ready?
-	addu $t0,%base,$v0 # calc the offset
+	add $t0,%base,$v0 # calc the offset
 	lw $t0,($t0) # get offset
 	beq $t0,%src,end
 skip2:
@@ -48,7 +46,31 @@ end:
 resume_routine:
 	# _cls_int
 	_resume  # Will cause it to go back 
+
+.macro get_clock
+	lw $v0,TIMER
+.end_macro
+
+.macro set_clock
+	sw $a0,TIMER
+.end_macro
+
+.macro clear_clock
+	sw $zero,TIMER
+.end_macro
+
+timer_interrupt:
+	get_clock
+        movr $a0,$v0
+	addi $a0,$v0,1
+	set_clock # $a0
 	
+	#callr ioLED, $v0
+	#calli ioLED, -1
+	
+	j hard_schd
+	
+
 hard_schd:
 	_LookupRR
 	#_k_save

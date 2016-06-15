@@ -5,7 +5,7 @@
 	push $k0  # Must save PC first!!!!!!!
 	saveall
 	lw $t9,PID
-	sw $sp,SSTACK($t9)	
+	sw $sp,SSTACK($t9)
 .end_macro
 
 .macro _u_save
@@ -49,7 +49,7 @@ sw $28,-108($sp)
 # sw $29,-112($sp) # will be overrided later
 sw $30,-116($sp)
 sw $31,-120($sp)
-addiu $sp,$sp,-124  # -4 for 
+addi $sp,$sp,-124  # -4 for 
 .end_macro
 
 # %PID is asked to be reg 
@@ -85,19 +85,19 @@ lw $28, 16($sp)
 # lw $29, 12($sp)  # do not destroy it !!!
 lw $30, 8($sp)
 lw $31, 4($sp)
-addiu $sp,$sp,124
+addi $sp,$sp,124
 .end_macro
 
 
 .macro disable_interrupt
-	addiu $t8,$zero,0
+	addi $t8,$zero,0
 	sendout $t8,0x100
 	_nop5
 .end_macro
 
 # 0xFFFF0100
 .macro enable_interrupt
-	addiu $t8,$zero,1
+	addi $t8,$zero,1
 	sendout $t8,0x100
 	_nop5
 .end_macro
@@ -124,9 +124,9 @@ interrupt_routine:
   intr_seek_loop:
 	_lwo $t2,$t1,$t9 # t2 keeps interrupt 
   	bne $t2,$zero,intr_enter_routine
-  	addiu $t1,$t1,0x4
+  	addi $t1,$t1,0x4
   	j intr_seek_loop
   intr_enter_routine:
-  	addu $t2,$t1,$t9
+  	add $t2,$t1,$t9
   	sw $zero,($t2)  # unset interrupt
   	exISR($t1)

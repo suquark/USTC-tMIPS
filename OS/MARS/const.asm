@@ -20,6 +20,7 @@
 .eqv PCB_LEN 0x80
 # Current Process,0x1C0;; 0 4 8 12 16...(PCB+PCB_LEN)
 .eqv PID  0x2180
+.eqv TIMER 0x2184
 
 .eqv PSTATE_DEAD 0
 .eqv PSTATE_READY 1
@@ -32,7 +33,9 @@
 .eqv SSTACK_LEN 0x80
 
 
-.eqv STACK 0x2300
-.eqv STACK_SIZE 0x80
-.eqv STACK_SIZE_4 0x20
+.eqv STACK 0x2380
+.eqv STACK_SIZE 0x100
+.eqv STACK_SIZE_4 0x40
+
+.eqv SHM 0x2f00
 

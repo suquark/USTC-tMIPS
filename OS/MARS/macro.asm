@@ -1,11 +1,11 @@
 # This file provide extended ISA 
 
 .macro dec(%reg)
-addiu %reg,%reg,-4
+addi %reg,%reg,-4
 .end_macro
 
 .macro inc(%reg)
-addiu %reg,%reg,4
+addi %reg,%reg,4
 .end_macro
 
 .macro push (%reg)
@@ -45,8 +45,8 @@ addiu %reg,%reg,4
 
 .macro _sub(%regd,%rega,%regb)
 	not %regb,%regb
-	addu %regd,%rega,%regb
-	addiu %regd,%regd,1
+	add %regd,%rega,%regb
+	addi %regd,%regd,1
 	not %regb,%regb  # restore it
 .end_macro
 
@@ -57,25 +57,25 @@ addiu %reg,%reg,4
 
 # will destory t0
 .macro bgt0(%rega,%regb,%label)
-	addu $t0,%rega,%regb
+	add $t0,%rega,%regb
 	bgtz $t0,%label
 .end_macro
 
 .macro movi(%reg,%imm)
-	addiu %reg,$zero,%imm
+	addi %reg,$zero,%imm
 .end_macro
 
 .macro movr(%reg,%reg2)
-	addu %reg,$zero,%reg2
+	add %reg,$zero,%reg2
 .end_macro
 
 .macro pushp(%pt)
-	addiu $t0,$zero,%pt
+	addi $t0,$zero,%pt
 	push %pt
 .end_macro
 
 .macro zero(%reg)
-	addiu %reg,$zero,0
+	addi %reg,$zero,0
 .end_macro
 
 .macro _jal(%addr)
@@ -111,28 +111,28 @@ jump_back:
 	movr $t1,%a
 loop:
 	beq $t1,0,end
-	addiu %dst,%dst,%imm
-	addiu $t1,$t1,-1
+	addi %dst,%dst,%imm
+	addi $t1,$t1,-1
 	j loop
 end:
 .end_macro
 
 # lw %rega,(%regb+%regc)
 .macro _lwo(%rega,%regb,%regc)
-	addu %rega,%regb,%regc
+	add %rega,%regb,%regc
 	lw %rega,(%rega)
 .end_macro
 
 
 
 .macro _nop
-	addiu $zero,$zero,0
+	addi $zero,$zero,0
 .end_macro
 
 .macro _nop5
-	addiu $zero,$zero,0	
-	addiu $zero,$zero,0	
-	addiu $zero,$zero,0	
-	addiu $zero,$zero,0
-	addiu $zero,$zero,0
+	addi $zero,$zero,0	
+	addi $zero,$zero,0	
+	addi $zero,$zero,0	
+	addi $zero,$zero,0
+	addi $zero,$zero,0
 .end_macro
